@@ -1,0 +1,290 @@
+/* 🌟 General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* 🌟 Background Image */
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("{% static 'assets/main2.jpg' %}");
+    z-index: -1;/* 🌟 General Styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
+    
+    /* 🌟 Background Image */
+    .bg-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: url("{% static 'assets/main.jpg' %}");
+        z-index: -1;
+    }
+    
+   /* 🌟 Glass Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 15, 15, 0.1);
+    box-shadow: 0 5px 10px rgba(244, 211, 211, 0.3);
+    z-index: 1000;
+}
+
+/* 🌟 Logo */
+.logo img {
+    width: 110px;
+    height: auto;
+}
+
+/* 🌟 Navigation Menu */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 12px; /* Reduced gap */
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+/* 🌟 Navigation Links */
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    background: rgb(255, 255, 255);
+}
+
+/* 🌟 Mobile Responsiveness */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px;
+    }
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+}
+
+    
+    /* 🌟 Event Selection */
+    .event-options {
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .category {
+        display: inline-block;
+        margin: 20px;
+        padding: 15px;
+        border: 2px solid #ddd;
+        text-align: center;
+        border-radius: 10px;
+        transition: box-shadow 0.3s ease-in-out, transform 0.2s;
+        background: white;
+    }
+    
+    .category img {
+        width: 250px;
+        height: 150px;
+        display: block;
+        margin: auto;
+        border-radius: 5px;
+    }
+    
+    .category:hover {
+        box-shadow: 0px 0px 15px 5px gold;
+        transform: scale(1.05);
+    }
+    
+    /* 🌟 AI Chatbot */
+    .ai-chatbot {
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .ai-chatbot input {
+        padding: 10px;
+        width: 250px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    .ai-chatbot button {
+        padding: 10px 15px;
+        background: #ff6f61;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    
+    .ai-chatbot button:hover {
+        background: #e55d50;
+    }
+    
+    /* 🌟 Checklist Panel */
+    .side-panel {
+        position: fixed;
+        right: -300px;
+        top: 0;
+        width: 300px;
+        height: 100%;
+        background: white;
+        box-shadow: -5px 0 10px rgba(241, 206, 206, 0.2);
+        transition: right 0.3s ease-in-out;
+        padding: 20px;
+        overflow-y: auto;
+    }
+    
+    .side-panel.show {
+        right: 0;
+    }
+    
+}
+
+/* 🌟 Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ff7272; /* Darker gray for better contrast */
+    padding: 10px 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 120px;
+    height: auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    color: gold;
+}
+
+/* 🌟 Event Selection */
+.event-options {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.category {
+    display: inline-block;
+    margin: 20px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    text-align: center;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s;
+    background: white;
+}
+
+.category img {
+    width: 250px;
+    height: 150px;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.category:hover {
+    box-shadow: 0px 0px 15px 5px gold;
+    transform: scale(1.05);
+}
+
+/* 🌟 Buttons */
+button {
+    padding: 10px 15px;
+    background: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #e55d50;
+}
+
+/* 🌟 AI Chatbot */
+.ai-chatbot {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.ai-chatbot input {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.ai-chatbot button:hover {
+    background: #e55d50;
+}
+
+/* 🌟 Checklist Panel */
+.side-panel {
+    position: fixed;
+    right: -300px;
+    top: 0;
+    width: 300px; /* Increased for better usability */
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.side-panel.show {
+    right: 0;
+}

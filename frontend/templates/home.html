@@ -1,0 +1,586 @@
+{% load static %}
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Blaze Blitz</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    
+
+
+</head>
+<body>
+    
+    <div class="bg-image" style="background-image: url('{% static 'assets/main.jpg' %}')">
+
+   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+  </svg>
+
+ 
+
+
+
+  
+
+    <!-- Glass Header 
+    <header class="glass-header">
+        <div class="logo">Budget Blaze Blitz</div>
+        <nav>
+            <ul class="nav justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/backend/home/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Go to Home">
+                  <i class="bi bi-house-door-fill me-1"></i> Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/backend/about/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Learn About Us">
+                  <i class="bi bi-info-circle-fill me-1"></i> About
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/backend/gallery/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Gallery">
+                  <i class="bi bi-images me-1"></i> Gallery
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/backend/login/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login to your account">
+                  <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="/backend/dashboard/"
+                   onclick="openProfileSidebar(); return false;"
+                   class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
+                   style="width: 36px; height: 36px;"
+                   data-bs-toggle="tooltip" 
+                   data-bs-placement="bottom" 
+                   title="Profile">
+                  <i class="bi bi-person-lines-fill" style="font-size: 18px;"></i>
+                </a>
+              </li>
+                
+        </ul>
+          
+            
+        </nav>
+    </header>
+        
+    <!-- Hero Section 
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="glowing-text">Get the Best <span class="highlight">Deals</span> Always Within <span class="highlight">Budget</span></h1>
+        <p class="fade-in">Search events. Book with confidence. Relax and enjoy.</p>
+
+        <!-- Search Bar 
+        <div class="search-container">
+            <select id="city">
+                <option value="">Select City</option>
+                <option value="chennai">chennai</option>
+            </select>
+
+            <select id="vendor">
+                <option value="">Select Vendor</option>
+                <option value="Catering">Booking</option>
+                <option value="Decoration">Viewing</option>
+            </select>
+
+            <select id="occasion">
+                <option value="">Select Occasion</option>
+                <option value="birthday">Birthday</option>
+                <option value="wedding">Engagement</option>
+                <option value="farewell">Farewell</option>
+                <option value="friends_reunion">Friends Reunion</option>
+            </select>
+
+            <button class="search-btn" onclick="searchEvents()">Search</button>
+        </div>
+    </div>
+</section>
+
+    <!-- Small Scale Events Section 
+    <section class="small-events">
+        <h2 class="section-title">Small-Scale Events</h2>
+        <div class="event-container">
+            <div class="event-box" id="birthday" onclick="window.location.href='/backend/Birthday_Party/'">
+                <img src="{% static 'assets/birthday.jpg' %}" alt="Birthday Party">
+
+                <p>Birthday Party</p>
+            </div>
+            <div class="event-box" id="engagement" onclick="window.location.href='/backend/engagement/'">
+                <img src="{% static 'assets/engagement.jpg' %}" alt="Engagement">
+                <p>Engagement</p>
+            </div>
+            <div class="event-box" id="farewell" onclick="window.location.href='/backend/farewell/'">
+                <img src="{% static 'assets/farewell.jpg' %}" alt="Farewell">
+                <p>Farewell</p>
+            </div>
+            <div class="event-box" id="friends-reunion" onclick="window.location.href='/backend/friends/'">
+                <img src="{% static 'assets/friends-reunion.jpg'%}" alt="Friends">
+                <p>Friends Reunion</p>
+            </div>
+        </div>
+        <div class="event-content" id="event-description"></div>
+    </section>
+    <!-- Genuine Memories Section 
+<section class="genuine-memories">
+    <h2 class="section-title">This is the way we accomplish it.</h2>
+    <p class="subtitle">Genuine individuals. Genuine occurrences. Genuine recollections.</p>
+
+    <!-- Scrolling Image Row 
+    <div class="scrolling-container">
+        <div class="scrolling-wrapper">
+            <img src="{% static 'assets/image1.jpg'% }" alt="Event 1">
+            <img src="{% static 'assets/image2.jpg'%}" alt="Event 2">
+            <img src="{% static 'assets/image3.jpg'%}" alt="Event 3">
+            <img src="{% static 'assets/image4.jpg'%}" alt="Event 4">
+            <img src="{% static 'assets/image5.jpg'%}" alt="Event 5">
+            <img src="{% static 'assets/image6.jpg'%}" alt="Event 6">
+            <img src="{% static 'assets/image7.jpg'%}" alt="Event 7">
+            <img src="{% static 'assets/image8.jpg'%}" alt="Event 8">
+            <img src="{% static 'assets/image9.jpg'%}" alt="Event 9">
+            <img src="{% static 'assets/image10.jpg'%}" alt="Event 10">
+            <img src="{% static 'assets/image11.jpg'%}" alt="Event 11">
+            <img src="{% static 'assets/image12.jpg'%}" alt="Event 12">
+        </div>
+        <div class="scroll-dots"></div>
+    </div>
+</section>
+<!-- 🔹 Image Pop-up Modal 
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+</body>
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(t => new bootstrap.Tooltip(t));
+  </script>
+  
+
+   <!-- Footer
+<footer>
+    <p><i class="bi bi-lightning-charge-fill"></i> Discover seamless event planning with India's Largest Event Booking Portal...</p>
+    <div class="footer-links">
+        <div>
+            <h3><i class="bi bi-link-45deg"></i> Useful Links</h3>
+            <ul>
+                <li><a href="#"><i class="bi bi-info-circle"></i> About Us</a></li>
+                <li><a href="#"><i class="bi bi-people-fill"></i> Team</a></li>
+                <li><a href="#"><i class="bi bi-envelope"></i> Contact Us</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3><i class="bi bi-geo-alt"></i> Venues</h3>
+            <ul>
+                <li><a href="#"><i class="bi bi-easel"></i> Exhibition</a></li>
+                <li><a href="#"><i class="bi bi-building"></i> Corporate Offerings</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3><i class="bi bi-telephone"></i> Contact Us</h3>
+            <p><i class="bi bi-phone"></i> Phone: +91 8451901950</p>
+            <p><i class="bi bi-envelope-at"></i> Email: Budget Blaze Blitz.com</p>
+            <div class="social-icons">
+                <a href="#"><i class="bi bi-whatsapp"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+                <a href="#"><i class="bi bi-twitter-x"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+   
+   
+
+    <script src="{% static 'assets/script.js'%}"></script>
+    
+
+    <script>
+        // Image Pop-up Modal
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImg");
+        var span = document.getElementsByClassName("close")[0];
+    
+        function openModal(imgSrc) {
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+        }
+    
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        function searchEvents() {
+            var city = document.getElementById("city").value;
+            var vendor = document.getElementById("vendor").value;
+            var occasion = document.getElementById("occasion").value;
+
+            // Perform search logic here (e.g., redirect to a search results page)
+            console.log("Searching for events in " + city + " with vendor " + vendor + " for occasion " + occasion);
+        }
+   function searchEvents() {
+    // Get the selected occasion value
+    var occasion = document.getElementById('occasion').value;
+    console.log("Selected occasion: " + occasion); // Check the selected occasion in the console
+
+    // Redirect based on the selected occasion
+    if (occasion === 'birthday') {
+        console.log("Redirecting to birthday page...");
+        window.location.href = '/backend/Birthday_Party/';  // Redirect to Birthday page
+    } else if (occasion === 'wedding') {
+        console.log("Redirecting to engagement page...");
+        window.location.href = '/backend/engagement/';  // Redirect to Engagement page
+    } else if (occasion === 'farewell') {
+        console.log("Redirecting to farewell page...");
+        window.location.href = '/backend/farewell/';  // Redirect to Farewell page
+    } else if (occasion === 'friends_reunion') {
+        console.log("Redirecting to friends reunion page...");
+        window.location.href = '/backend/friends/';  // Redirect to Friends Reunion page
+    } else {
+        console.log("No occasion selected or invalid option.");
+        alert('Please select a valid occasion.');
+    }
+}
+</script>
+    </body>
+    </html>
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Blaze Blitz</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Image -->
+    <div class="bg-image" style="background-image: url('{% static "assets/main.jpg" %}');"></div>
+
+    <!-- Glass Header -->
+    <header class="glass-header">
+        <div class="logo">Budget Blaze Blitz</div>
+        <nav>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/backend/home/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Go to Home">
+                        <i class="bi bi-house-door-fill me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/backend/about/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Learn About Us">
+                        <i class="bi bi-info-circle-fill me-1"></i> About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/backend/gallery/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Gallery">
+                        <i class="bi bi-images me-1"></i> Gallery
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/backend/login/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login to your account">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/backend/dashboard/" onclick="openProfileSidebar(); return false;" class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Profile">
+                        <i class="bi bi-person-lines-fill" style="font-size: 18px;"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="glowing-text">Get the Best <span class="highlight">Deals</span> Always Within <span class="highlight">Budget</span></h1>
+            <p class="fade-in">Search events. Book with confidence. Relax and enjoy.</p>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <select id="city">
+                    <option value="">Select City</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="Chengalpattu">Chengalpattu</option>
+                </select>
+
+                <select id="vendor">
+                    <option value="">Select Vendor</option>
+                    <option value="Catering">Catering</option>
+                    <option value="Decoration">Decoration</option>
+                </select>
+
+                <select id="occasion">
+                    <option value="">Select Occasion</option>
+                    <option value="birthday">Birthday</option>
+                    <option value="wedding">Wedding</option>
+                    <option value="farewell">Farewell</option>
+                    <option value="friends_reunion">Friends Reunion</option>
+                </select>
+
+                <button class="search-btn" onclick="searchEvents()">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Small Scale Events Section -->
+    <section class="small-events">
+        <h2 class="section-title">Small-Scale Events</h2>
+        <div class="event-container">
+            <div class="event-box" id="birthday" onclick="window.location.href='/backend/Birthday_Party/'">
+                <img src="{% static 'assets/birthday.jpg' %}" alt="Birthday Party">
+                <p>Birthday Party</p>
+            </div>
+            <div class="event-box" id="engagement" onclick="window.location.href='/backend/engagement/'">
+                <img src="{% static 'assets/engagement.jpg' %}" alt="Engagement">
+                <p>Engagement</p>
+            </div>
+            <div class="event-box" id="farewell" onclick="window.location.href='/backend/farewell/'">
+                <img src="{% static 'assets/farewell.jpg' %}" alt="Farewell">
+                <p>Farewell</p>
+            </div>
+            <div class="event-box" id="friends-reunion" onclick="window.location.href='/backend/friends/'">
+                <img src="{% static 'assets/friends-reunion.jpg' %}" alt="Friends Reunion">
+                <p>Friends Reunion</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Genuine Memories Section -->
+    <section class="genuine-memories">
+        <h2 class="section-title">This is the way we accomplish it.</h2>
+        <p class="subtitle">Genuine individuals. Genuine occurrences. Genuine recollections.</p>
+
+        <!-- Scrolling Image Row -->
+        <div class="scrolling-container">
+            <div class="scrolling-wrapper">
+                <img src="{% static 'assets/image1.jpg' %}" alt="Event 1">
+                <img src="{% static 'assets/image2.jpg' %}" alt="Event 2">
+                <img src="{% static 'assets/image3.jpg' %}" alt="Event 3">
+                <img src="{% static 'assets/image4.jpg' %}" alt="Event 4">
+                <img src="{% static 'assets/image5.jpg' %}" alt="Event 5">
+                <img src="{% static 'assets/image6.jpg' %}" alt="Event 6">
+                <img src="{% static 'assets/image7.jpg' %}" alt="Event 7">
+                <img src="{% static 'assets/image8.jpg' %}" alt="Event 8">
+                <img src="{% static 'assets/image9.jpg' %}" alt="Event 9">
+                <img src="{% static 'assets/image10.jpg' %}" alt="Event 10">
+                <img src="{% static 'assets/image11.jpg' %}" alt="Event 11">
+                <img src="{% static 'assets/image12.jpg' %}" alt="Event 12">
+            </div>
+            <div class="scroll-dots"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><i class="bi bi-lightning-charge-fill"></i> Discover seamless event planning with India's Largest Event Booking Portal...</p>
+        <div class="footer-links">
+            <div>
+                <h3><i class="bi bi-link-45deg"></i> Useful Links</h3>
+                <ul>
+                    <li><a href="#"><i class="bi bi-info-circle"></i> About Us</a></li>
+                    <li><a href="#"><i class="bi bi-people-fill"></i> Team</a></li>
+                    <li><a href="#"><i class="bi bi-envelope"></i> Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3><i class="bi bi-geo-alt"></i> Venues</h3>
+                <ul>
+                    <li><a href="#"><i class="bi bi-easel"></i> Exhibition</a></li>
+                    <li><a href="#"><i class="bi bi-building"></i> Corporate Offerings</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3><i class="bi bi-telephone"></i> Contact Us</h3>
+                <p><i class="bi bi-phone"></i> Phone: +91 8451901950</p>
+                <p><i class="bi bi-envelope-at"></i> Email: Budget Blaze Blitz.com</p>
+                <div class="social-icons">
+                    <a href="#"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script >
+        document.addEventListener("DOMContentLoaded", function () {
+    // ✅ Event Redirection Logic
+    const eventPages = {
+        "birthday": "/backend/Birthday_Party/",
+        "engagement": "/backend/engagement/",
+        "farewell": "/backend/farewell/",
+        "friends_reunion": "/backend/friends/"
+    };
+
+    document.querySelectorAll(".event-box").forEach(box => {
+        box.addEventListener("click", function () {
+            let eventID = this.id;
+            if (eventPages[eventID]) {
+                window.location.href = eventPages[eventID];
+            }
+        });
+    });
+
+    // ✅ Fade-in Animation on Page Load
+    const heroText = document.querySelector(".glowing-text");
+    if (heroText) {
+        heroText.style.opacity = "0";
+        heroText.style.transform = "scale(0.9)";
+        heroText.style.transition = "opacity 1s ease-in-out, transform 1s ease-in-out";
+
+        setTimeout(() => {
+            heroText.style.opacity = "1";
+            heroText.style.transform = "scale(1)";
+        }, 500);
+    }
+
+    // ✅ Search Function (Fetching Data from Django API)
+    document.getElementById("search-btn")?.addEventListener("click", function () {
+        let city = document.getElementById("city")?.value;
+        let vendor = document.getElementById("vendor")?.value;
+        let occasion = document.getElementById("occasion")?.value;
+
+        if (city && vendor && occasion) {
+            fetch(`/search_events/?city=${city}&vendor=${vendor}&occasion=${occasion}`)
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => console.error("Search failed:", error));
+        } else {
+            alert("Please select all fields.");
+        }
+    });
+
+    // ✅ Scrolling Wrapper Logic
+    const scrollWrapper = document.querySelector(".scrolling-wrapper");
+    if (scrollWrapper) {
+        let imagesCount = scrollWrapper.children.length;
+        let index = 0;
+        let interval;
+
+        function scrollImages() {
+            index = (index + 1) % imagesCount;
+            scrollWrapper.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function startAutoScroll() {
+            interval = setInterval(scrollImages, 3000);
+        }
+
+        startAutoScroll();
+
+        scrollWrapper.addEventListener("mouseenter", () => clearInterval(interval));
+        scrollWrapper.addEventListener("mouseleave", startAutoScroll);
+    }
+
+    // ✅ Login Page Redirection
+    document.querySelector("a[href='auth.html']")?.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "auth.html";
+    });
+
+    // ✅ Image Modal Script
+    function openModal(img) {
+        let modal = document.getElementById("imageModal");
+        let modalImg = document.getElementById("modalImg");
+
+        if (modal && modalImg) {
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        }
+    }
+
+    function closeModal() {
+        let modal = document.getElementById("imageModal");
+        if (modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // ✅ Close Modal when Clicking Outside Image
+    window.onclick = function (event) {
+        let modal = document.getElementById("imageModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    // ✅ Assign openModal function to images
+    document.querySelectorAll(".scrolling-wrapper img").forEach(img => {
+        img.addEventListener("click", function () {
+            openModal(this);
+        });
+    });
+
+    // ✅ Assign closeModal function to close button
+    document.querySelector(".close")?.addEventListener("click", closeModal);
+});
+
+  function openProfileSidebar() {
+    document.getElementById("profileSidebar").classList.add("show");
+  }
+
+  function closeProfileSidebar() {
+    document.getElementById("profileSidebar").classList.remove("show");
+  }
+
+
+  function openProfileSidebar() {
+    document.getElementById("profileSidebar").classList.add("show");
+  }
+
+  function closeProfileSidebar() {
+    document.getElementById("profileSidebar").classList.remove("show");
+  }
+
+  // Bootstrap tooltip enable
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+
+//home
+function searchEvents() {
+    var occasion = document.getElementById('occasion').value;
+
+    if (occasion === 'birthday') {
+        window.location.href = '/backend/Birthday_Party/';
+    } else if (occasion === 'wedding') {
+        window.location.href = '/backend/engagement/';
+    } else if (occasion === 'farewell') {
+        window.location.href = '/backend/farewell/';
+    } else if (occasion === 'friends_reunion') {
+        window.location.href = '/backend/friends/';
+    } else {
+        alert('Please select a valid occasion.');
+    }
+}
+    </script>
+   <script>
+    // Add the 'loaded' class to the body after the page has fully loaded
+    window.addEventListener("load", function () {
+        document.body.classList.add("loaded");
+    });
+</script>
+
+</body>
+</html>

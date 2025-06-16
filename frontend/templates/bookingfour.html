@@ -1,0 +1,656 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vendor Booking Confirmation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <style>
+    body {
+      background: url('{% static "assets/main.jpg" %}') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+
+    .receipt-box {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      color: #333;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .step-indicator .step {
+      flex: 1;
+      text-align: center;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .step-indicator .step.active {
+      color: #00ffcc;
+      text-shadow: 0 0 5px #00ffe1;
+    }
+
+    @media(max-width: 576px) {
+      .modal-dialog { max-width: 90%; }
+      .card { font-size: 14px; }
+    }
+  
+  .animate-valid {
+    transition: all 0.3s ease;
+  }
+
+  .input-group-text.text-success {
+    transition: opacity 0.3s ease;
+  }
+
+  /* From Uiverse.io by vinodjangid07 */ 
+.loader {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.truckWrapper {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  overflow-x: hidden;
+}
+/* truck upper body */
+.truckBody {
+  width: 130px;
+  height: fit-content;
+  margin-bottom: 6px;
+  animation: motion 1s linear infinite;
+}
+/* truck suspension animation*/
+@keyframes motion {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+/* truck's tires */
+.truckTires {
+  width: 130px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px 0px 15px;
+  position: absolute;
+  bottom: 0;
+}
+.truckTires svg {
+  width: 24px;
+}
+
+.road {
+  width: 100%;
+  height: 1.5px;
+  background-color: #282828;
+  position: relative;
+  bottom: 0;
+  align-self: flex-end;
+  border-radius: 3px;
+}
+.road::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 100%;
+  background-color: #282828;
+  right: -50%;
+  border-radius: 3px;
+  animation: roadAnimation 1.4s linear infinite;
+  border-left: 10px solid white;
+}
+.road::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  background-color: #282828;
+  right: -65%;
+  border-radius: 3px;
+  animation: roadAnimation 1.4s linear infinite;
+  border-left: 4px solid white;
+}
+
+.lampPost {
+  position: absolute;
+  bottom: 0;
+  right: -90%;
+  height: 90px;
+  animation: roadAnimation 1.4s linear infinite;
+}
+
+@keyframes roadAnimation {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-350px);
+  }
+}
+
+</style>
+
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+
+    <div class="d-flex justify-content-between mb-3">
+      <a href="/backend/Birthday_Party/" class="btn btn-outline-light">
+        <i class="bi bi-house-door-fill"></i> Home
+      </a>
+    
+      
+      <a href="/backend/home/" class="btn btn-outline-danger">
+        <i class="bi bi-x-circle-fill"></i> Cancel Payment
+      </a>
+    </div>
+  
+    <div class="glass p-4 shadow-lg">
+      <h2 class="text-center mb-4 text-light">
+        <i class="bi bi-card-checklist"></i> Vendor Booking Summary
+      </h2>
+      
+      <div class="text-center">
+        <p class="text-light">Review your selected vendors and proceed to payment.</p>
+      </div>
+
+      <script type="text/javascript">
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
+              window.voiceflow.chat.load({
+                verify: { projectID: '680c7f66ad1fd33749d57a4a' },
+                url: 'https://general-runtime.voiceflow.com',
+                versionID: 'production',
+                voice: {
+                  url: "https://runtime-api.voiceflow.com"
+                }
+              });
+            }
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+      </script>
+
+    <!-- Step Tracker -->
+    <div class="step-indicator">
+      <div class="step active"><i class="bi bi-eye-fill"></i> Step 1: Preview</div>
+      <div class="step active"><i class="bi bi-card-list"></i> Step 2: Details</div>
+      <div class="step active"><i class="bi bi-credit-card"></i> Step 3: Payment</div>
+    </div>
+
+    <!-- Vendor Preview -->
+    <div id="vendorPreview" class="mb-4"></div>
+
+    <!-- Toast for email -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div class="toast align-items-center text-bg-success border-0" id="emailToast">
+        <div class="d-flex">
+          <div class="toast-body">📨 Confirmation email will be sent shortly!</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Form -->
+    <form id="bookingForm" novalidate>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label"><i class="bi bi-envelope"></i> Email</label>
+          <input type="email" class="form-control" required placeholder="name@example.com">
+          <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label"><i class="bi bi-geo-alt"></i> Address</label>
+          <input type="text" class="form-control" required placeholder="Street / Area">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label"><i class="bi bi-signpost"></i> Landmark</label>
+          <input type="text" class="form-control" placeholder="Near Bus Stand, etc.">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><i class="bi bi-clock"></i> Preferred Time</label>
+          <select class="form-select" required>
+            <option value="" disabled selected>⏰ Select Time</option>
+            <option value="morning">🌅 Morning (8:00 AM - 12:00 PM)</option>
+            <option value="noon">🌞 Afternoon (12:00 PM - 4:00 PM)</option>
+            <option value="night">🌙 Evening (4:00 PM - 8:00 PM)</option>
+          </select>
+        </div>
+      </div>
+
+        <!-- Payment Options -->
+        <div class="mb-4">
+          <h5><i class="bi bi-wallet2"></i> Payment Options</h5>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payOption" id="credit" value="credit" required>
+            <label class="form-check-label" for="credit"><i class="bi bi-credit-card"></i> Credit/Debit Card</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payOption" id="gpay" value="gpay">
+            <label class="form-check-label" for="gpay"><i class="bi bi-phone"></i> Google Pay / PhonePe</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payOption" id="offline" value="offline">
+            <label class="form-check-label" for="offline"><i class="bi bi-cash"></i> Pay Offline at Event</label>
+          </div>
+        </div>
+
+  
+  <!-- Conditional Payment Details -->
+  <div id="paymentDetails" class="mb-4"></div>
+
+  <button id="payBtn" type="button" class="btn btn-success w-100" onclick="handlePay()">
+    <span id="payText"><i class="bi bi-currency-dollar"></i> Click to Pay</span>
+    <span id="paySpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+  </button>
+</form>
+</div>
+</div>
+<div id="vendorPreview" class="mb-4"></div>
+<!-- 👇 This will automatically get the amount shown below the preview -->
+
+<!-- Receipt Modal -->
+<div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content receipt-box">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="receiptLabel"><i class="bi bi-receipt"></i> Payment Successful</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-4">
+          <i class="bi bi-check-circle-fill text-success display-4"></i>
+          <h4 class="mt-2">Thank you for your booking!</h4>
+          <p class="text-muted">Your payment has been successfully processed.</p>
+        </div>
+        <div class="border rounded p-3 mb-3">
+          <h5 class="text-center text-primary"><i class="bi bi-person-fill"></i> Booking Details</h5>
+          <ul id="receiptDetails" class="list-group list-group-flush"></ul>
+        </div>
+        <div class="text-center mt-3">
+          <button onclick="window.print()" class="btn btn-outline-secondary">
+            <i class="bi bi-printer"></i> Print Receipt
+          </button>
+        </div>
+        <div class="alert alert-success mt-4 text-center">
+          <i class="bi bi-envelope-check"></i> A confirmation email will be sent shortly.
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a href="/backend/home/" class="btn btn-primary"><i class="bi bi-house-door"></i> Go to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- From Uiverse.io by vinodjangid07 --> 
+<div class="loader">
+  <div class="truckWrapper">
+    <div class="truckBody">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 198 93"
+        class="trucksvg"
+      >
+        <path
+          stroke-width="3"
+          stroke="#282828"
+          fill="#F83D3D"
+          d="M135 22.5H177.264C178.295 22.5 179.22 23.133 179.594 24.0939L192.33 56.8443C192.442 57.1332 192.5 57.4404 192.5 57.7504V89C192.5 90.3807 191.381 91.5 190 91.5H135C133.619 91.5 132.5 90.3807 132.5 89V25C132.5 23.6193 133.619 22.5 135 22.5Z"
+        ></path>
+        <path
+          stroke-width="3"
+          stroke="#282828"
+          fill="#7D7C7C"
+          d="M146 33.5H181.741C182.779 33.5 183.709 34.1415 184.078 35.112L190.538 52.112C191.16 53.748 189.951 55.5 188.201 55.5H146C144.619 55.5 143.5 54.3807 143.5 53V36C143.5 34.6193 144.619 33.5 146 33.5Z"
+        ></path>
+        <path
+          stroke-width="2"
+          stroke="#282828"
+          fill="#282828"
+          d="M150 65C150 65.39 149.763 65.8656 149.127 66.2893C148.499 66.7083 147.573 67 146.5 67C145.427 67 144.501 66.7083 143.873 66.2893C143.237 65.8656 143 65.39 143 65C143 64.61 143.237 64.1344 143.873 63.7107C144.501 63.2917 145.427 63 146.5 63C147.573 63 148.499 63.2917 149.127 63.7107C149.763 64.1344 150 64.61 150 65Z"
+        ></path>
+        <rect
+          stroke-width="2"
+          stroke="#282828"
+          fill="#FFFCAB"
+          rx="1"
+          height="7"
+          width="5"
+          y="63"
+          x="187"
+        ></rect>
+        <rect
+          stroke-width="2"
+          stroke="#282828"
+          fill="#282828"
+          rx="1"
+          height="11"
+          width="4"
+          y="81"
+          x="193"
+        ></rect>
+        <rect
+          stroke-width="3"
+          stroke="#282828"
+          fill="#DFDFDF"
+          rx="2.5"
+          height="90"
+          width="121"
+          y="1.5"
+          x="6.5"
+        ></rect>
+        <rect
+          stroke-width="2"
+          stroke="#282828"
+          fill="#DFDFDF"
+          rx="2"
+          height="4"
+          width="6"
+          y="84"
+          x="1"
+        ></rect>
+      </svg>
+    </div>
+    <div class="truckTires">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 30 30"
+        class="tiresvg"
+      >
+        <circle
+          stroke-width="3"
+          stroke="#282828"
+          fill="#282828"
+          r="13.5"
+          cy="15"
+          cx="15"
+        ></circle>
+        <circle fill="#DFDFDF" r="7" cy="15" cx="15"></circle>
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 30 30"
+        class="tiresvg"
+      >
+        <circle
+          stroke-width="3"
+          stroke="#282828"
+          fill="#282828"
+          r="13.5"
+          cy="15"
+          cx="15"
+        ></circle>
+        <circle fill="#DFDFDF" r="7" cy="15" cx="15"></circle>
+      </svg>
+    </div>
+    <div class="road"></div>
+
+    <svg
+      xml:space="preserve"
+      viewBox="0 0 453.459 453.459"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      id="Capa_1"
+      version="1.1"
+      fill="#000000"
+      class="lampPost"
+    >
+      <path
+        d="M252.882,0c-37.781,0-68.686,29.953-70.245,67.358h-6.917v8.954c-26.109,2.163-45.463,10.011-45.463,19.366h9.993
+c-1.65,5.146-2.507,10.54-2.507,16.017c0,28.956,23.558,52.514,52.514,52.514c28.956,0,52.514-23.558,52.514-52.514
+c0-5.478-0.856-10.872-2.506-16.017h9.992c0-9.354-19.352-17.204-45.463-19.366v-8.954h-6.149C200.189,38.779,223.924,16,252.882,16
+c29.952,0,54.32,24.368,54.32,54.32c0,28.774-11.078,37.009-25.105,47.437c-17.444,12.968-37.216,27.667-37.216,78.884v113.914
+h-0.797c-5.068,0-9.174,4.108-9.174,9.177c0,2.844,1.293,5.383,3.321,7.066c-3.432,27.933-26.851,95.744-8.226,115.459v11.202h45.75
+v-11.202c18.625-19.715-4.794-87.527-8.227-115.459c2.029-1.683,3.322-4.223,3.322-7.066c0-5.068-4.107-9.177-9.176-9.177h-0.795
+V196.641c0-43.174,14.942-54.283,30.762-66.043c14.793-10.997,31.559-23.461,31.559-60.277C323.202,31.545,291.656,0,252.882,0z
+M232.77,111.694c0,23.442-19.071,42.514-42.514,42.514c-23.442,0-42.514-19.072-42.514-42.514c0-5.531,1.078-10.957,3.141-16.017
+h78.747C231.693,100.736,232.77,106.162,232.77,111.694z"
+      ></path>
+    </svg>
+  </div>
+</div>
+
+
+<script>
+function populateVendors() {
+  const previewBox = document.getElementById("vendorPreview");
+  const vendors = JSON.parse(localStorage.getItem("selectedVendors")) || [];
+
+  if (!vendors.length) {
+    previewBox.innerHTML = `<p class="text-warning">No vendors selected.</p>`;
+    return;
+  }
+
+  vendors.forEach(vendor => {
+    previewBox.innerHTML += `
+      <div class="card mb-2">
+        <div class="card-body">
+          <strong>${vendor.name}</strong><br>
+          <i class="bi bi-telephone-fill"></i> ${vendor.phone}<br>
+                <i class="bi bi-geo-alt-fill"></i> ${vendor.location}<br>
+                <i class="bi bi-currency-rupee"></i> ₹${vendor.price}<br>
+                <i class="bi bi-palette-fill"></i> ${vendor.color || "Not Selected"}
+              
+        </div>
+      </div>
+    `;
+  });
+
+  showTotalAmount();
+}
+
+function showTotalAmount() {
+  const vendors = JSON.parse(localStorage.getItem("selectedVendors")) || [];
+  console.log("Selected Vendors:", vendors); // Debugging: Check the data structure
+
+  const total = vendors.reduce((sum, v) => sum + (parseFloat(v.price) || 0), 0);
+
+  const previewBox = document.getElementById("vendorPreview");
+  const amountBox = document.createElement("div");
+  amountBox.className = "alert alert-info mt-3";
+  amountBox.innerHTML = `<strong>💰 Total Price:</strong> ₹${total.toFixed(2)}`;
+  previewBox.appendChild(amountBox);
+}
+
+function handlePay() {
+  const form = document.getElementById("bookingForm");
+
+  // Add validation class (Bootstrap)
+  form.classList.add("was-validated");
+
+  // Trigger HTML5 built-in validation
+  if (!form.checkValidity()) {
+    return; // If invalid, stop here
+  }
+
+  // Show loading animation
+  document.getElementById("payText").innerText = "Processing...";
+  document.getElementById("paySpinner").classList.remove("d-none");
+
+  // Simulate processing delay
+  setTimeout(() => {
+    // Reset button text
+    document.getElementById("payText").innerText = "Click to Pay 💰";
+    document.getElementById("paySpinner").classList.add("d-none");
+
+    // ✅ Show receipt modal
+    const modal = new bootstrap.Modal(document.getElementById("receiptModal"));
+    modal.show();
+
+    // ✅ Load selected vendors in receipt
+    showReceipt();
+
+    // ✅ Toast + Confetti
+    showToast();
+    launchConfetti();
+  }, 1500);
+}
+
+
+function showReceipt() {
+  const receiptList = document.getElementById("receiptDetails");
+  receiptList.innerHTML = "";
+  const vendors = JSON.parse(localStorage.getItem("selectedVendors")) || [];
+
+  vendors.forEach(v => {
+    receiptList.innerHTML += `<li><strong>${v.name}</strong> - ${v.phone} - ${v.location} - 🎨 ${v.color || 'Not Selected'}</li>`;
+  });
+  // Add a token message at the end of the receipt
+  receiptList.innerHTML += `
+    <hr>
+    <p class="text-center text-success mt-3">
+      <strong>🎟️ Token:</strong> ${generateToken()}
+    </p>
+  `;
+}
+
+// Function to generate a random token
+function generateToken() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let token = "";
+  for (let i = 0; i < 8; i++) {
+    token += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return token;
+}
+function showToast() {
+  const toast = new bootstrap.Toast(document.getElementById("emailToast"));
+  toast.show();
+}
+
+function launchConfetti() {
+  confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+}
+
+document.querySelectorAll('input[name="payOption"]').forEach((elem) => {
+  elem.addEventListener('change', function (event) {
+    const paymentDetails = document.getElementById('paymentDetails');
+    paymentDetails.innerHTML = '';
+    const selected = event.target.value;
+
+    const createInputGroup = (icon, placeholder, type = 'text', required = true) => {
+      return `
+        <div class="input-group mb-3 animate-valid">
+          <span class="input-group-text"><i class="bi ${icon}"></i></span>
+          <input type="${type}" class="form-control validate-input" placeholder="${placeholder}" ${required ? 'required' : ''}>
+          <span class="input-group-text text-success d-none"><i class="bi bi-check-circle-fill"></i></span>
+        </div>
+      `;
+    };
+
+    if (selected === 'credit') {
+      paymentDetails.innerHTML = `
+        ${createInputGroup('bi-person-fill', 'Full Name on Card')}
+        ${createInputGroup('bi-credit-card', 'Card Number')}
+        ${createInputGroup('bi-calendar-date', 'MM/YY')}
+        ${createInputGroup('bi-lock-fill', 'CVV', 'password')}
+      `;
+    } else if (selected === 'gpay') {
+      paymentDetails.innerHTML = `
+        ${createInputGroup('bi-phone', 'UPI ID or Phone Number')}
+      `;
+    } else if (selected === 'offline') {
+      paymentDetails.innerHTML = `
+        <div class="alert alert-warning text-dark">
+          💡 No online payment needed. You can pay at the venue.
+        </div>
+      `;
+    }
+
+    attachValidationAnimation();
+  });
+});
+
+function attachValidationAnimation() {
+  const inputs = document.querySelectorAll('.validate-input');
+
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      const isValid = input.value.trim().length >= 3;
+      const tickIcon = input.parentElement.querySelector('.input-group-text.text-success');
+
+      if (isValid) {
+        tickIcon.classList.remove('d-none');
+      } else {
+        tickIcon.classList.add('d-none');
+      }
+    });
+  });
+}
+
+// ✅ Single window.onload block
+window.onload = () => {
+  populateVendors();
+};
+
+function goHomeWithLoader() {
+  // Show the loader
+  document.getElementById("homeLoader").classList.remove("d-none");
+
+  // Optional: fade out form or content if you want
+  document.querySelector(".glass").style.opacity = 0.3;
+
+  // Wait for a few seconds, then redirect
+  setTimeout(() => {
+    window.location.href = "/backend/farewell/";
+  }, 3000); // 3 seconds
+}
+
+
+</script>
+
+
+</body>
+</html>

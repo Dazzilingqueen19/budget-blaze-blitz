@@ -1,0 +1,134 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Truth or Dare</title>
+    <a href="/backend/games/" class="home-btn">🏠 Home</a>
+    <style>
+        body {
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: white;
+            overflow: hidden;
+        }
+        html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+        .home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ff6f61; /* Contrasting color */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 15px white;
+    transition: 0.3s ease-in-out;
+    z-index: 1000; /* Ensures it stays on top */
+}
+.home-btn:hover {
+    background: #2ecc71;
+    box-shadow: 0 0 20px lime;
+    transform: scale(1.1);
+}
+        h1 {
+            text-shadow: 2px 2px 10px cyan;
+        }
+        button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px white;
+            transition: 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #2ecc71;
+            box-shadow: 0 0 20px lime;
+            transform: scale(1.1);
+        }
+        #result {
+            font-size: 25px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px yellow;
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: gold;
+            opacity: 0.7;
+            animation: fall 3s infinite ease-in-out;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎭 Truth or Dare</h1>
+    <button onclick="randomChoice()">Pick One</button>
+    <p id="result"></p>
+
+    <script>
+        const truths = [
+            "Tell your biggest secret!",
+            "What's your most embarrassing moment?",
+            "Who is your crush?",
+            "Have you ever lied to your best friend?",
+            "What’s the weirdest dream you had?"
+        ];
+
+        const dares = [
+            "Do a silly dance for 30 seconds!",
+            "Send a funny message to your crush!",
+            "Speak in a funny accent for 1 minute!",
+            "Do 20 jumping jacks!",
+            "Pretend to be a cat for 2 minutes!"
+        ];
+
+        function randomChoice() {
+            let type = Math.random() > 0.5 ? "Truth" : "Dare";
+            let options = type === "Truth" ? truths : dares;
+            let selected = options[Math.floor(Math.random() * options.length)];
+
+            document.getElementById("result").innerHTML = `<strong>${type}:</strong> ${selected}`;
+
+            if (type === "Dare") {
+                playSound();
+                createConfetti();
+            }
+        }
+
+        function playSound() {
+            let audio = new Audio('https://www.fesliyanstudios.com/play-mp3/4389'); // Funny Sound
+            audio.play();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                let confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>

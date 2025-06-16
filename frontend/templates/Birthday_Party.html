@@ -1,0 +1,422 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Vendor Booking</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('{% static "assets/birthday2.jpg" %}') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+    .glass-header {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      color: white;
+    }
+
+    .glass-header h3, .glass-header a {
+      text-shadow: 0 0 8px #7329dc;
+    }
+
+    .vendor-card {
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background-color: #ffffffcc;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-size: 14px;
+      padding: 20px;
+      margin: 10px;
+    }
+    
+
+    .vendor-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #ff69b4;
+      cursor: pointer;
+    }
+
+    .vendor-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Keeps it a square */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+    .color-box {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      border-radius: 50%;
+      margin: 2px;
+      border: 1px solid #000;
+    }
+
+    .booking-btn {
+      font-size: 1.2rem;
+      padding: 12px 30px;
+    }
+
+    .checklist-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100%;
+      background: url('{% static "images/bg5.jpg" %}') no-repeat center center fixed;
+      background-size: cover;
+      border-left: 2px solid #ccc;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: right 0.4s ease-in-out;
+      overflow-y: auto;
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+
+    .checklist-panel.show {
+      right: 0;
+    }
+
+    .color-palette {
+      display: flex;
+      gap: 5px;
+
+    }
+   
+.popup-glass {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: linear-gradient(145deg, #ffffffdd, #f0f8ffdd);
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  color: #333;
+  font-size: 16px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  animation: fadeIn 0.5s ease;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.vendor-card:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header class="glass-header p-3 mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h3><i class="bi bi-people-fill"></i> Birthday Party</h3>
+      <nav>
+        <a class="text-white me-4" href="/backend/home/"><i class="bi bi-house-door"></i> Home</a>
+        <a class="text-white me-4" href="javascript:void(0);" onclick="openAbout()"><i class="bi bi-info-circle"></i> About</a>
+        <a class="text-white me-4" href="/backend/games/"><i class="bi bi-controller"></i> Games</a>
+        <button class="btn btn-outline-light me-2" onclick="toggleChecklist()"><i class="bi bi-list-check"></i> Checklist</button>
+        <a href="#makeBookingBtn" class="btn btn-light btn-sm fw-semibold text-dark px-3 py-1"><i class="bi bi-calendar-check"></i> Book Now</a>
+      </nav>
+    </div>
+  </header>
+<!-- Cloud-like About Popup -->
+<div id="aboutPopup" class="popup-glass d-none">
+    <div class="popup-content">
+      <h4 class="text-center">🎈 About This Page</h4>
+      <p id="aboutText" class="mt-3"></p>
+      <div class="text-center mt-4">
+        <button class="btn btn-outline-light" onclick="closeAbout()">🔙 Back</button>
+      </div>
+    </div>
+  </div>
+  
+ 
+  
+
+  
+
+<div class="container">
+  <h2 class="text-center text-light mb-4">🎈 Birthday Vendor Options</h2>
+  <div class="row" id="vendor-list"></div>
+ <!-- Existing Booking Button -->
+<div class="text-center mt-4">
+    <button id="makeBookingBtn" class="btn btn-warning booking-btn" onclick="submitBooking()">Make Booking</button>
+  </div>
+  
+</div>
+
+<!-- Checklist Panel -->
+<div id="checklist" class="checklist-panel">
+  <h4>📝 Selected Vendors</h4>
+  <div id="selected-vendors"></div>
+  <div class="mt-3">
+    <button class="btn btn-danger btn-sm" onclick="clearChecklist()">Clear</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleChecklist()">Back</button>
+  </div>
+</div>
+<script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '680c7f66ad1fd33749d57a4a' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
+<script>
+const chennaiAreas = ["T.Nagar", "Anna Nagar", "Velachery", "Tambaram", "Adyar", "Guindy", "Mylapore", "Kodambakkam", "Perambur", "Egmore"];
+const colors = ["Red", "Blue", "Pink", "Gold", "Lavender", "Rainbow"];
+const colorMap = {
+  "Red": "#ff0000", "Blue": "#007bff", "Pink": "#ff69b4",
+  "Gold": "#ffd700", "Lavender": "#e6e6fa", "Rainbow": "linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet)"
+};
+const vendorList = document.getElementById("vendor-list");
+
+
+    const vendorsNames = [
+  "Star Balloons", "Festiva Creations", "Dream Decor", "Party Poppers", "Glow Events",
+  "Happy Moments", "Magic Lights", "Chennai Celebration Co.", "Bright Bash", "Joyful Vibes",
+  "Cake & Confetti", "Elegant Events", "Rainbow Planners", "Shiny Spark Events", "The Party Experts",
+  "Candlelight Events", "Sparkly Themes", "ColorFest Decorators", "Glam Zone", "Vibrant Tales",
+  "Sunshine Planners", "Royal Events", "Classic Moments", "Balloons & More", "Perfect Setup",
+  "Celebration Studio", "Balloon Bashers", "Floral Fantasy", "Glitter Decorators", "Fancy & Fun",
+  "Elite Events", "Golden Aura", "Memory Makers", "Lilac Lights", "Choco Party", "Bash Buddy",
+  "Peppy Parties", "Glitzy Gang", "The Pink Story", "Wow Setups", "Lush & Lights",
+  "Bloom Bash", "Twinkle Time", "Happy Halo", "Jolly Joy Events", "Frost & Flair",
+  "The Birthday Bay", "Glam Glee", "Color Carnival", "Funline Planners", "Neon Nest"
+];
+const vendorsDescriptions = [
+  "Experts in elegant balloon setups and LED lighting.", "Creative decor for birthday themes and custom backdrops.",
+  "Elegant decor with balloon arches and centerpieces.", "Known for funky balloon animals and LED balloons.",
+  "Glow-in-the-dark party decorations and props.", "Custom themes with cartoon characters and photo booths.",
+  "Top-tier lighting and stage decor with flowers.", "Specialists in outdoor birthday garden parties.",
+  "Neon light themes and vibrant balloon walls.", "Custom entrance arches with floral touch.",
+  "Everything birthday — from cake decor to return gifts!", "Luxury birthday themes for kids & adults.",
+  "Unicorn, dinosaur, and fairy-tale themed setups.", "Sparkling balloon designs and table setups.",
+  "Professional team for full birthday solutions.", "Romantic balloon and candlelight decorations.",
+  "Glitter and glam balloon bouquet specialists.", "Color-based decor like red-pink, blue-gold fusion.",
+  "Boho style birthday planners with simplicity.", "Rustic & garden theme decorators for birthday brunches.",
+  "Bright stage and photo booth experts.", "Royal prince/princess themed setups.", "Cultural fusion themes and food stalls.",
+  "Balloon bouquets + party hats package combo.", "Perfect for home party decorations.",
+  "Stage and light-focused planners.", "Balloon and streamer fusion themes.", "Decor + emcee combo experts.",
+  "Cake table & stage specialists.", "Shimmer wall decorators.",
+  "Luxury party lounge decorators.", "Golden theme for milestone birthdays.",
+  "Kids' party specialists with mascots.", "Lilac and pastel balloon specialists.",
+  "Chocolate fountain and candy decor pros.", "Budget-friendly balloon bundles.", "Mini parties & cozy celebration experts.",
+  "Fun games + decor package.", "PINK themed parties only!", "Decor & return gift packaging.",
+  "Eco-friendly decor materials & paper crafts.", "Twinkling birthday night decorators.",
+  "Glow themes & balloon arches for boys.", "Gentle & soft pastel themes.", "Sassy girl theme pros.",
+  "Winter wonderland and snowy decor.", "Grand and classy hall decorators.", "Fairy light dream setups.",
+  "Custom art board and themed props.", "Color powder & surprise entrance experts."
+];
+
+const specialties = [
+  "🎈 Balloon Experts", "🎉 Theme Decor", "🌟 Lighting", "🎁 Return Gifts", "🍰 Cake Table", "🎤 Stage Setup",
+  "🎨 Custom Props", "🧸 Kid’s Party", "💡 Neon Decor", "🍭 Candy Corner"
+];
+
+// Generate vendor cards dynamically
+for (let i = 1; i <= 50; i++) {
+  const name = vendorsNames[(i - 1) % vendorsNames.length];
+  const description = vendorsDescriptions[(i - 1) % vendorsDescriptions.length]; // Add vendor descriptions
+  const location = chennaiAreas[i % chennaiAreas.length];
+  const phone = `98888${10000 + i}`;
+  const price = 10000 + i * 500; // Incremental pricing
+  const rating = (Math.random() * 2 + 3).toFixed(1); // Random rating between 3.0 and 5.0
+  const foodType = i % 2 === 0 ? "Veg" : "Non-Veg"; // Alternate between Veg and Non-Veg
+  const specialty = specialties[i % specialties.length]; // Add specialties
+
+  // Dropdown options for color themes
+  const dropdownOptions = colors.map(c => `<option style="background:${colorMap[c]}">${c}</option>`).join("");
+  const dropdown = `<label class="form-label mt-2"><strong>🎨 Theme Colors</strong></label>
+                    <select class="form-select" id="colorTheme${i}">${dropdownOptions}</select>`;
+
+  vendorList.innerHTML += `
+    <div class="col-md-4">
+      <div class="vendor-card p-3">
+        <img src="/static/images/bir${i}.jpg" alt="Vendor ${i}" class="img-fluid rounded">
+        <h5 class="mt-3 text-primary">${name}</h5>
+        <p class="text-muted">${description}</p> <!-- Add description -->
+        <p><strong>📍 Location:</strong> ${location}</p>
+        <p><strong>📞 Phone:</strong> ${phone}</p>
+        <p><strong>💰 Price:</strong> ₹${price}</p>
+        <p><strong>⭐ Rating:</strong> ${rating} / 5</p>
+        <p><strong>🏷️ Specialty:</strong> ${specialty}</p>
+        <p><strong>🍱 Type:</strong> ${foodType}</p>
+        ${dropdown}
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="vendor${i}" onclick="event.stopPropagation(); updateChecklist(${i})">
+          <label class="form-check-label" for="vendor${i}">Select this Vendor</label>
+        </div>
+      </div>
+    </div>`;
+}
+// Checklist Logic
+function updateChecklist(i) {
+  const checklistDiv = document.getElementById("selected-vendors");
+  const checkbox = document.getElementById(`vendor${i}`);
+
+  if (checkbox.checked) {
+    const div = document.createElement("div");
+    div.id = `check${i}`;
+    div.innerHTML = `<strong>Vendor ${i}</strong> - ✅ Selected <hr>`;
+    checklistDiv.appendChild(div);
+  } else {
+    const toRemove = document.getElementById(`check${i}`);
+    if (toRemove) toRemove.remove();
+  }
+}
+
+function toggleChecklist() {
+  document.getElementById("checklist").classList.toggle("show");
+}
+
+function clearChecklist() {
+  for (let i = 1; i <= 50; i++) {
+    const checkbox = document.getElementById(`vendor${i}`);
+    if (checkbox) checkbox.checked = false;
+    const div = document.getElementById(`check${i}`);
+    if (div) div.remove();
+  }
+}
+
+function submitBooking() {
+  const selectedVendors = [];
+  for (let i = 1; i <= 50; i++) {
+    const checkbox = document.getElementById(`vendor${i}`);
+    if (checkbox && checkbox.checked) {
+      const card = checkbox.closest(".vendor-card");
+      const name = card.querySelector("h5").innerText;
+      const location = card.querySelector("p:nth-of-type(1)").innerText.replace("📍 Location: ", "");
+      const phone = card.querySelector("p:nth-of-type(2)").innerText.replace("📞 Phone: ", "");
+      const priceText = card.querySelector("p:nth-of-type(3)").innerText;
+      const price = parseInt(priceText.replace(/[^\d]/g, ""));
+      const specialty = card.querySelector("p:nth-of-type(5)").innerText.replace("🏷️ Specialty: ", ""); // Get specialty
+      const themeColor = document.getElementById(`colorTheme${i}`).value; // Get selected theme color
+
+      selectedVendors.push({ name, location, phone, price, specialty, themeColor });
+    }
+  }
+
+  if (selectedVendors.length === 0) {
+    alert("⚠️ Please select at least one vendor!");
+    return;
+  }
+
+  // Save selected vendors to localStorage
+  localStorage.setItem("selectedVendors", JSON.stringify(selectedVendors));
+  alert("🎉 Booking confirmed! Redirecting to summary page...");
+  window.location.href = "/backend/booking/"; // Redirect to the booking summary page
+}
+
+
+function updateChecklist(i) {
+  const checklistDiv = document.getElementById("selected-vendors");
+  const checkbox = document.getElementById(`vendor${i}`);
+  const selectedColor = document.getElementById(`colorTheme${i}`).value;
+
+  if (checkbox.checked) {
+    const div = document.createElement("div");
+    div.id = `check${i}`;
+    div.innerHTML = `<strong>Vendor ${i}</strong> - ✅ Selected <br><small>🎨 Theme Color: ${selectedColor}</small><hr>`;
+    checklistDiv.appendChild(div);
+  } else {
+    const toRemove = document.getElementById(`check${i}`);
+    if (toRemove) toRemove.remove();
+  }
+}
+
+    
+function openAbout() {
+  const popup = document.getElementById("aboutPopup");
+  const aboutText = document.getElementById("aboutText");
+  popup.classList.remove("d-none");
+
+  const message = "Welcome to the Birthday Party Booking Page! 🎉\n\nHere, you can explore creative vendor options, view colorful decoration themes, and plan your special day effortlessly. Let the celebration begin! 🎂✨";
+  aboutText.innerHTML = "";
+  
+  let index = 0;
+
+  function typeNextChar() {
+    if (index < message.length) {
+      aboutText.innerHTML += message[index] === '\n' ? '<br>' : message[index];
+      index++;
+      setTimeout(typeNextChar, 40); // Speed of typing
+    }
+  }
+
+  typeNextChar();
+}
+
+function closeAbout() {
+  document.getElementById("aboutPopup").classList.add("d-none");
+}
+// Function to handle booking submission
+function submitBooking() {
+  const selectedVendors = [];
+  for (let i = 1; i <= 50; i++) {
+    const checkbox = document.getElementById(`vendor${i}`);
+    if (checkbox && checkbox.checked) {
+      const card = checkbox.closest(".vendor-card");
+      const name = card.querySelector("h5").innerText;
+      const location = card.querySelector("p:nth-of-type(2)").innerText.replace("📍 Location: ", "");
+      const phone = card.querySelector("p:nth-of-type(3)").innerText.replace("📞 Phone: ", "");
+      const priceText = card.querySelector("p:nth-of-type(4)").innerText;
+      const price = parseInt(priceText.replace(/[^\d]/g, ""));
+      const color = document.getElementById(`colorTheme${i}`).value; // Get selected theme color
+      selectedVendors.push({ name, location, phone, price, color });
+    }
+  }
+
+  if (selectedVendors.length === 0) {
+    alert("⚠️ Please select at least one vendor!");
+    return;
+  }
+
+  // Save selected vendors to localStorage
+  localStorage.setItem("selectedVendors", JSON.stringify(selectedVendors));
+  alert("🎉 Booking confirmed! Redirecting to summary page...");
+  window.location.href = "/backend/booking/"; // Redirect to farewell booking summary page
+}
+
+</script>
+
+</body>
+</html>

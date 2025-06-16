@@ -1,0 +1,154 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Tic Tac Toe ❌⭕</title>
+    <a href="/backend/games/" class="home-btn">🏠 Home</a>
+    <style>
+        body {
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            background: #1e1e1e;
+            color: #fff;
+        }
+        html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+        .home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ff6f61; /* Contrasting color */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 15px white;
+    transition: 0.3s ease-in-out;
+    z-index: 1000; /* Ensures it stays on top */
+}
+.home-btn:hover {
+    background: #2ecc71;
+    box-shadow: 0 0 20px lime;
+    transform: scale(1.1);
+}
+        h1 {
+            text-shadow: 2px 2px 10px cyan;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            gap: 15px;
+            margin: 20px auto;
+            width: 400px;
+        }
+        .cell {
+            width: 120px;
+            height: 120px;
+            font-size: 40px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #222;
+            border: 3px solid cyan;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px cyan;
+            color: white;
+        }
+        .cell:hover {
+            background: #00ffcc;
+            color: black;
+            transform: scale(1.1);
+        }
+        .win {
+            background: #ffcc00 !important;
+            box-shadow: 0 0 20px #ffcc00;
+        }
+        button {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #ff416c;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #ff4b2b;
+        }
+    </style>
+</head>
+<body>
+    <h1>✨ Tic Tac Toe ❌⭕</h1>
+    <div class="board" id="board">
+        <div class="cell" onclick="makeMove(0)"></div>
+        <div class="cell" onclick="makeMove(1)"></div>
+        <div class="cell" onclick="makeMove(2)"></div>
+        <div class="cell" onclick="makeMove(3)"></div>
+        <div class="cell" onclick="makeMove(4)"></div>
+        <div class="cell" onclick="makeMove(5)"></div>
+        <div class="cell" onclick="makeMove(6)"></div>
+        <div class="cell" onclick="makeMove(7)"></div>
+        <div class="cell" onclick="makeMove(8)"></div>
+    </div>
+    <button onclick="resetGame()">🔄 Restart Game</button>
+
+    <script>
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let gameActive = true;
+
+        function makeMove(index) {
+            if (!board[index] && gameActive) {
+                board[index] = currentPlayer;
+                document.getElementsByClassName("cell")[index].innerText = currentPlayer;
+                checkWinner();
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+            }
+        }
+
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6]             // Diagonals
+            ];
+            
+            for (let pattern of winPatterns) {
+                let [a, b, c] = pattern;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    document.getElementsByClassName("cell")[a].classList.add("win");
+                    document.getElementsByClassName("cell")[b].classList.add("win");
+                    document.getElementsByClassName("cell")[c].classList.add("win");
+                    gameActive = false;
+                    return;
+                }
+            }
+        }
+
+        function resetGame() {
+            board.fill("");
+            gameActive = true;
+            document.querySelectorAll(".cell").forEach(cell => {
+                cell.innerText = "";
+                cell.classList.remove("win");
+            });
+            currentPlayer = "X";
+        }
+    </script>
+</body>
+</html>

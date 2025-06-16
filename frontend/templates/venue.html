@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Venues</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Choose Your Venue</h1>
+    </header>
+
+    <section class="venue-list">
+        <h2>Available Venues</h2>
+        <div id="venue-container">
+            <!-- Venue details will be loaded here dynamically -->
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("fetch_venues.php")
+                .then(response => response.json())
+                .then(data => {
+                    const venueContainer = document.getElementById("venue-container");
+
+                    if (data.length === 0) {
+                        venueContainer.innerHTML = "<p>No venues available.</p>";
+                    } else {
+                        data.forEach(venue => {
+                            const venueCard = document.createElement("div");
+                            venueCard.classList.add("venue-card");
+
+                            // ✅ Corrected: Enclosed HTML inside backticks (``)
+                            venueCard.innerHTML = `
+                                <img src="frontend/images/${venue.event_pictures}" alt="${venue.name}" class="venue-image">
+                                <h3>${venue.name}</h3>
+                                <p><strong>Location:</strong> ${venue.location}</p>
+                                <p><strong>Price:</strong> ₹${venue.price}</p>
+                                <p><strong>Rating:</strong> ⭐${venue.rating}</p>
+                                <button onclick="bookVenue(${venue.id})">Book Now</button>
+                            `;
+                            
+                            venueContainer.appendChild(venueCard);
+                        });
+                    }
+                })
+                .catch(error => console.error("Error loading venues:", error));
+        });
+
+        function bookVenue(venueId) {
+            alert("Venue " + venueId + " booked successfully!");
+        }
+    </script>
+
+</body>
+</html>

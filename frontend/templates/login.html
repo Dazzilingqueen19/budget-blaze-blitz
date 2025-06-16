@@ -1,0 +1,587 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - Budget Blaze Blitz</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+  
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header {
+  padding: 10px 30px; /* more control */
+}
+
+    .role-btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .role-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .card {
+      border: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      font-weight: bold;
+    }
+
+    .btn-success, .btn-primary {
+      border-radius: 10px;
+    }
+
+    .btn-success:hover, .btn-primary:hover {
+      transform: scale(1.03);
+    }
+
+    footer {
+      background-color: #f8f9fa;
+      border-top: 2px solid #dee2e6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating Labels */
+.form-floating label {
+  transition: all 0.3s ease;
+}
+
+.form-control:focus + label,
+.form-control:not(:placeholder-shown) + label {
+  transform: translateY(-1.5rem);
+  font-size: 0.9rem;
+  color: #28a745;
+}
+
+/* Icon inside input box */
+.input-group-text {
+  background-color: transparent;
+  border-right: none;
+}
+
+.input-group .form-control {
+  border-left: none;
+}
+
+/* Form card glow */
+.card:hover {
+  box-shadow: 0 0 20px rgba(0, 150, 136, 0.2);
+  transform: scale(1.01);
+  transition: 0.3s ease;
+}
+.form-container {
+  display: none;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+body.dark-mode .card {
+  background-color: #1f1f1f;
+  color: #fff;
+}
+
+body.dark-mode .form-control {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode .form-floating > label {
+  color: #ccc;
+}
+input:invalid {
+  border-color: #dc3545;
+}
+
+input:valid {
+  border-color: #28a745;
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+
+  .mySwiper {
+  width: 400px;
+  height: 300px;
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.scrolling-text-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .scrolling-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: scroll-left 18s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  .scrolling-text-wrapper {
+    background-color: #a9aeee; /* Light yellow background */
+    color: #000; /* Black text color */
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 0;
+  }
+
+  </style>
+</head>
+<body>
+
+<!-- ✅ NAVBAR -->
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <img src="{% static 'images/logo.jpg' %}" 
+      class="rounded shadow me-2 img-fluid" 
+      style="max-width: 60px;" 
+      alt="Logo">
+       <h4 class="ms-2 text-primary">Budget Blaze Blitz</h4>
+    </a>
+    
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li>
+        <a href="/backend/home/" class="nav-link px-2">
+          <i class="bi bi-house-door-fill me-1"></i> Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link px-2" data-bs-toggle="modal" data-bs-target="#imageModal">
+          <i class="bi bi-info-circle-fill me-1"></i> About
+        </a>
+      </li>
+      
+    </ul>
+
+    <div class="text-end">
+      <a href="/backend/login/" class="btn btn-outline-primary me-2">
+        <i class="bi bi-box-arrow-in-right me-1"></i> Login
+      </a>
+      <a href="/backend/signup/" class="btn btn-primary">
+        <i class="bi bi-person-plus-fill me-1"></i> Sign-up
+      </a>
+    </div>
+  </header>
+</div>
+
+<div class="col-md-6 text-center d-none d-md-block">
+  <lottie-player
+    src="https://assets7.lottiefiles.com/packages/lf20_3rwasyjy.json"
+    background="transparent"
+    speed="1"
+    style="width: 100%; height: 400px;"
+    loop
+    autoplay>
+  </lottie-player>
+</div>
+
+
+
+<!-- ✅ ROLE SELECTION -->
+<div class="container text-center mt-4">
+  <h2 class="text-success fw-bold mb-4">Choose Your Role to Login</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <button onclick="showForm('customer')" class="btn btn-outline-success role-btn">Customer Login</button>
+    </div>
+    <div class="col-md-4">
+      <button onclick="showForm('vendor')" class="btn btn-outline-primary role-btn">Vendor Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ CUSTOMER LOGIN FORM -->
+<div class="container form-container mt-4" id="customer-form">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <!-- Redirect to customer dashboard -->
+<form method="post" action="/backend/home/" class="card shadow p-4">
+
+        {% csrf_token %}
+        <h3 class="text-center text-success mb-3">Customer Login</h3>
+        <hr>
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+          <div class="form-floating flex-grow-1">
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+            <label for="email">Email address</label>
+          
+
+          </div>
+        </div>
+        <form ... onsubmit="return validateForm()">
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="bi bi-lock"></i></span>
+          <div class="form-floating flex-grow-1">
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+            <label for="password">Password</label>
+          </div>
+        </div>
+        
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success">Login as Customer</button>
+        </div>
+        <div class="mt-3 text-center">
+          <small>Don't have an account? <a href="/backend/signup/">Sign up here</a></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="text-end p-2">
+  <button id="themeToggle" class="btn btn-outline-dark btn-sm">🌙 Toggle Theme</button>
+</div>
+
+<!-- ✅ VENDOR LOGIN FORM -->
+<div class="container form-container mt-4" id="vendor-form">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+     <!-- Redirect to vendor dashboard -->
+<form method="post" action="/backend/home/" class="card shadow p-4">
+
+        {% csrf_token %}
+        <h3 class="text-center text-primary mb-3">Vendor Login</h3>
+        <hr>
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+          <div class="form-floating flex-grow-1">
+            <input type="email" name="vendor_email" class="form-control" id="vendor_email" placeholder="Email" required>
+            <label for="vendor_email">Vendor Email</label>
+          </div>
+        </div>
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+          <div class="form-floating flex-grow-1">
+            <input type="password" name="vendor_password" class="form-control" id="vendor_password" placeholder="Password" required>
+            <label for="vendor_password">Vendor Password</label>
+            <!-- Add eye icon in input group (inside password div) -->
+<span class="input-group-text" onclick="togglePasswordVisibility('password')"><i class="bi bi-eye-slash" id="toggleIcon"></i></span>
+
+          </div>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login as Vendor</button>
+        </div>
+        <div class="mt-3 text-center">
+          <small>New Vendor? <a href="/backend/signup/">Register here</a></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ RUNNING ABOUT MESSAGE -->
+<div class="container-fluid bg-warning py-2">
+  <div class="scrolling-text-wrapper overflow-hidden">
+    <div class="scrolling-text text-dark fw-bold">
+      Welcome to Budget Blaze Blitz – Your one-stop budget-friendly event planning platform! 🎉 Plan weddings, birthdays, farewells & more with top-rated vendors and AI-powered recommendations!
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Gallery</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="swiper-container mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="{% static 'images/f4.jpg' %}" alt="Slide 1">
+            </div>
+            <div class="swiper-slide">
+              <img src="{% static 'images/bir1.jpg' %}" alt="Slide 2">
+            </div>
+            <div class="swiper-slide">
+              <img src="{% static 'images/f50.jpg' %}" alt="Slide 3">
+            </div>
+            <div class="swiper-slide">
+              <img src="{% static 'images/bir50.jpg' %}" alt="Slide 4">
+            </div>
+            <div class="swiper-slide">
+              <img src="{% static 'images/eng5.jpg' %}" alt="Slide 5">
+            </div>
+            <div class="swiper-slide">
+              <img src="{% static 'images/eng50.jpg' %}" alt="Slide 6">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ VENDOR LOGIN FORM -->
+<div class="container form-container mt-4" id="vendor-form">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="post" action="/backend/login/" class="card shadow p-4">
+        {% csrf_token %}
+        <h3 class="text-center text-primary mb-3">Vendor Login</h3>
+        <hr>
+
+        <!-- Email Field -->
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+          <div class="form-floating flex-grow-1">
+            <input type="email" name="email" class="form-control" id="vendor_email" placeholder="Email" required>
+            <label for="vendor_email">Email address</label>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="bi bi-shield-lock-fill"></i></span>
+          <div class="form-floating flex-grow-1">
+            <input type="password" name="password" class="form-control" id="vendor_password" placeholder="Password" required>
+            <label for="vendor_password">Password</label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+        
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login as Vendor</button>
+        </div>
+        <div class="mt-3 text-center">
+          <small>New Vendor? <a href="/backend/signup/">Sign up here</a></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- ✅ FOOTER -->
+<div class="container">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-4 mt-5 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="me-2 text-body-secondary text-decoration-none">
+        <img src="{% static 'images/logo.jpg' %}" width="50" height="50" class="rounded shadow" alt="Logo">
+      </a>
+      <span class="text-muted">&copy; 2025 Budget Blaze Blitz</span>
+    </div>
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a href="#" class="text-body-secondary"><i class="bi bi-instagram"></i></a></li>
+      <li class="ms-3"><a href="#" class="text-body-secondary"><i class="bi bi-facebook"></i></a></li>
+      <li class="ms-3"><a href="#" class="text-body-secondary"><i class="bi bi-twitter-x"></i></a></li>
+    </ul>
+  </footer>
+</div>
+
+<!-- ✅ JS TOGGLE FUNCTION -->
+<script>
+
+  function showForm(role) {
+    const customerForm = document.getElementById('customer-form');
+    const vendorForm = document.getElementById('vendor-form');
+
+    if (role === 'customer') {
+      customerForm.style.display = 'block';
+      vendorForm.style.display = 'none';
+    } else if (role === 'vendor') {
+      vendorForm.style.display = 'block';
+      customerForm.style.display = 'none';
+    }
+  }
+
+  // Optional: Keep last opened form if user reloads page (using sessionStorage)
+  window.onload = function () {
+    const savedRole = sessionStorage.getItem('selectedRole');
+    if (savedRole) {
+      showForm(savedRole);
+    }
+  };
+
+  function showForm(role) {
+    sessionStorage.setItem('selectedRole', role);
+    document.getElementById('customer-form').style.display = (role === 'customer') ? 'block' : 'none';
+    document.getElementById('vendor-form').style.display = (role === 'vendor') ? 'block' : 'none';
+  }
+</script>
+
+<script>
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+  });
+</script>
+<script>
+  document.querySelectorAll('input[type="password"]').forEach(passwordInput => {
+    const toggle = document.createElement('i');
+    toggle.className = "bi bi-eye-slash toggle-password position-absolute end-0 me-3 mt-3";
+    toggle.style.cursor = "pointer";
+    toggle.addEventListener('click', () => {
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+      toggle.classList.toggle('bi-eye');
+      toggle.classList.toggle('bi-eye-slash');
+    });
+    passwordInput.parentNode.appendChild(toggle);
+    passwordInput.parentNode.style.position = 'relative';
+  });
+  
+</script>
+<script>
+  function validateForm() {
+    let email = document.getElementById("email")?.value;
+    let password = document.getElementById("password")?.value;
+
+    if (!email || !password) {
+      alert("Please fill in all fields.");
+      return false;
+    }
+
+    // Optional: Basic email format check
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert("Enter a valid email address.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    loop: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    }
+  });
+
+
+// Initialize Swiper when the modal is opened
+$('#imageModal').on('shown.bs.modal', function () {
+  var swiper = new Swiper('.mySwiper', {
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function validateForm() {
+    const password = document.getElementById("password").value;
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long.");
+      return false;
+    }
+    return true;
+  }
+</script>
+<script>
+  function togglePasswordVisibility(id) {
+    const input = document.getElementById(id);
+    const icon = document.getElementById('toggleIcon');
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye");
+    } else {
+      input.type = "password";
+      icon.classList.remove("bi-eye");
+      icon.classList.add("bi-eye-slash");
+    }
+  }
+</script>
+
+
+</body>
+</html>

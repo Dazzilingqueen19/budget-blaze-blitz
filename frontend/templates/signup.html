@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | Event Platform</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #f3f4f9, #e3e8f1);
+    }
+    .header-logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .navbar, footer {
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .nav-tabs .nav-link {
+      color: #555;
+      font-weight: 600;
+      padding: 12px 20px;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #6f42c1;
+      color: #fff;
+      border: 1px solid #6f42c1;
+    }
+    .tab-pane {
+      padding: 20px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .card {
+      border-radius: 10px;
+      padding: 30px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+    }
+    .form-control:focus {
+      border-color: #6f42c1;
+      box-shadow: 0 0 8px rgba(111, 66, 193, 0.5);
+    }
+    .btn {
+      font-weight: 600;
+      border-radius: 25px;
+      padding: 12px 30px;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #4e2a84;
+      color: white;
+    }
+    .footer-icons a {
+      color: #555;
+      font-size: 1.5rem;
+      margin: 0 15px;
+    }
+    .footer-icons a:hover {
+      color: #6f42c1;
+    }
+    .spinner-border {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
+    <div class="d-flex align-items-center">
+      <img src="{% static 'images/logo.jpg' %}" class="header-logo" alt="Logo">
+      <h4 class="ms-3 text-primary">EVENT PLATFORM</h4>
+    </div>
+    <div>
+      <a href="/backend/login/" class="btn btn-outline-primary me-2">Login</a>
+      <form action="/backend/signup/" method="post" enctype="multipart/form-data">
+    </div>
+  </header>
+</div>
+
+<!-- Sign-Up Section -->
+<div class="container">
+  <ul class="nav nav-tabs mb-4" id="signupTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="customer-tab" data-bs-toggle="tab" data-bs-target="#customer" type="button" role="tab">Customer</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="vendor-tab" data-bs-toggle="tab" data-bs-target="#vendor" type="button" role="tab">Vendor</button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="signupTabsContent">
+    <!-- Customer Signup -->
+    <div class="tab-pane fade show active" id="customer" role="tabpanel">
+      <form action="/backend/signup" method="post" enctype="multipart/form-data" class="card p-4 shadow" id="customerForm">
+        {% csrf_token %}
+        <h3 class="text-success">Customer Sign-Up</h3><hr>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
+        <input type="hidden" name="user_type" value="customer">
+
+        <div class="mb-3">
+          <label>Name</label>
+          <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label>Profile Image</label>
+          <input type="file" name="image" class="form-control" accept="image/*">
+        </div>
+        <div class="mb-3">
+          <label>Location</label>
+          <input type="text" name="location" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label>Mobile Number</label>
+          <input type="tel" name="mobile" class="form-control" pattern="[0-9]{10}" required>
+        </div>
+        <div class="mb-3">
+          <label>Email address</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label>Password</label>
+          <input type="password" name="password1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label>Confirm Password</label>
+          <input type="password" name="password2" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success" id="submitBtn">Register as Customer
+          <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true" id="spinner"></span>
+        </button>
+      </form>
+    </div>
+
+ <!-- Vendor Signup -->
+<div class="tab-pane fade" id="vendor" role="tabpanel">
+  <form action="/backend/signup/" method="post" enctype="multipart/form-data" class="card p-4 shadow" id="vendorForm">
+    {% csrf_token %}
+    <h3 class="text-warning">Vendor Sign-Up</h3><hr>
+
+    <!-- Hidden field to specify user type as 'vendor' -->
+    <input type="hidden" name="user_type" value="vendor">
+
+    <div class="mb-3">
+      <label>Name</label>
+      <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Profile Image</label>
+      <input type="file" name="image" class="form-control" accept="image/*">
+    </div>
+    <div class="mb-3">
+      <label>Experience (in years)</label>
+      <input type="number" name="experience" class="form-control" min="0" required>
+    </div>
+    <div class="mb-3">
+      <label>Location</label>
+      <input type="text" name="location" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Mobile Number</label>
+      <input type="tel" name="mobile" class="form-control" pattern="[0-9]{10}" required>
+    </div>
+    <div class="mb-3">
+      <label>Email address</label>
+      <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input type="password" name="password1" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Confirm Password</label>
+      <input type="password" name="password2" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-warning" id="submitBtnVendor">
+      Register as Vendor
+      <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true" id="spinnerVendor"></span>
+    </button>
+  </form>
+</div>
+
+
+<script>
+  document.getElementById('submitBtnVendor').addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Optionally, you can add form validation here before submission
+
+    // Submit the form
+    document.getElementById('vendorForm').submit();
+
+    // Redirect to the login page after submitting the registration form
+    setTimeout(function() {
+      window.location.href = '/backend/login/'; // Redirect to login page (assuming the login URL is named 'login')
+    }, 1000); // Delay the redirect slightly to ensure the form is processed
+  });
+</script>
+
+<!-- Footer -->
+<div class="container">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="me-2 text-decoration-none">
+        <img src="{% static 'images/logo.jpg' %}" class="header-logo" alt="Logo">
+      </a>
+      <span class="text-muted">&copy; 2024 Event Platform</span>
+    </div>
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex footer-icons">
+      <li><a href="#" class="text-muted"><i class="bi bi-instagram"></i></a></li>
+      <li><a href="#" class="text-muted"><i class="bi bi-facebook"></i></a></li>
+      <li><a href="#" class="text-muted"><i class="bi bi-twitter"></i></a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('customerForm').addEventListener('submit', function () {
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('spinner').style.display = 'inline-block';
+  });
+
+  document.getElementById('vendorForm').addEventListener('submit', function () {
+    document.getElementById('submitBtnVendor').disabled = true;
+    document.getElementById('spinnerVendor').style.display = 'inline-block';
+  });
+</script>
+</body>
+</html>

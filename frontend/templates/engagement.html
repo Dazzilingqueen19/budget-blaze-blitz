@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Engagement Vendor Booking</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+ 
+    body {
+      background: url('{% static "assets/main3.jpg" %}') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .glass-header {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      color: white;
+    }
+    .glass-header h3, .glass-header a {
+      text-shadow: 0 0 8px #ff69b4;
+    }
+    .vendor-card {
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background-color: #ffffffcc;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 20px;
+    }
+    .vendor-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #ff69b4;
+      cursor: pointer;
+    }
+    .vendor-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .checklist-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100%;
+      background: url('{% static "images/bg5.jpg" %}') no-repeat center center fixed;
+      background-size: cover;
+      border-left: 2px solid #ccc;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: right 0.4s ease-in-out;
+      overflow-y: auto;
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+    .checklist-panel.show {
+      right: 0;
+    }
+    .popup-glass {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .popup-content {
+      background: linear-gradient(145deg, #ffffffdd, #f0f8ffdd);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      color: #333;
+      font-size: 16px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+
+  <header class="glass-header p-3 mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h3><i class="bi bi-people-fill"></i> Engagement</h3>
+      <nav>
+        <a class="text-white me-4" href="/backend/home/"><i class="bi bi-house-door"></i> Home</a>
+        <a class="text-white me-4" href="javascript:void(0);" onclick="openAbout()"><i class="bi bi-info-circle"></i> About</a>
+        <a class="text-white me-4" href="/backend/games/"><i class="bi bi-controller"></i> Games</a>
+        <button class="btn btn-outline-light me-2" onclick="toggleChecklist()"><i class="bi bi-list-check"></i> Checklist</button>
+        <a href="#makeBookingBtn" class="btn btn-light btn-sm fw-semibold text-dark px-3 py-1"><i class="bi bi-calendar-check"></i> Book Now</a>
+      </nav>
+    </div>
+  </header>
+<script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '680c7f66ad1fd33749d57a4a' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
+<!-- About Popup -->
+<div id="aboutPopup" class="popup-glass d-none">
+  <div class="popup-content">
+    <h4 class="text-center">💍 About Engagement Page</h4>
+    <p id="aboutText" class="mt-3"></p>
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-dark" onclick="closeAbout()">🔙 Back</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Vendor List -->
+<div class="container">
+  <h2 class="text-center text-light mb-4">Engagement Vendor Options</h2>
+  <div class="row" id="vendor-list"></div>
+  <div class="text-center mt-4">
+    <button id="makeBookingBtn" class="btn btn-warning booking-btn" onclick="submitBooking()">Make Booking</button>
+  </div>
+</div>
+<!-- Chatbot Button -->
+
+
+<!-- Checklist Panel -->
+<div id="checklist" class="checklist-panel">
+  <h4>📝 Selected Vendors</h4>
+  <div id="selected-vendors"></div>
+  <div class="mt-3">
+    <button class="btn btn-danger btn-sm" onclick="clearChecklist()">Clear</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleChecklist()">Back</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+const vendorsNames = [
+  "Elegant Knots", "Promise Planners", "The Engagement Affair", "Rings & Roses", "Velvet Vows",
+  "Diamond Day Events", "Celebrate Us", "Ornate Moments", "Candlelight Charm", "Blush & Bloom",
+  "Royal Setups", "The Floral Deck", "Petal Promise", "Sparkle Settings", "Crimson Celebrations",
+  "Grace & Glimmer", "Hues of Love", "True Knot Tales", "Enchanté Events", "Aurora Arrangements",
+  "The Vow Company", "Gold Leaf Events", "Cherished Chapters", "Forever Decor", "Lavish Engagements",
+  "Pearl Petals", "Mirror Magic", "Two Souls Setup", "Classy Knot", "Rings & Strings",
+  "The Orchid Crew", "Regal Moments", "Bliss & Buds", "Lilac Lounge", "Hearts & Halos",
+  "Grace Garden", "EngageAura", "The Proposal Room", "Elite Essence", "Rosewood Planners",
+  "KnotCraft Events", "Charmed Chronicles", "Rose Trail Events", "Promise Pavilion", "Moon & Me Events",
+  "Halo Lights Decor", "The Elegant Vow", "Bloomline Stories", "Proposal Point", "Golden Union"
+];
+
+const areas = [
+  "Anna Nagar", "T.Nagar", "Velachery", "Ashok Nagar", "Nungambakkam",
+  "Besant Nagar", "Guindy", "Adyar", "Vadapalani", "Kodambakkam",
+  "Perambur", "Tambaram", "Mylapore", "Porur", "Pallavaram",
+  "Ambattur", "Sholinganallur", "Medavakkam", "Thiruvanmiyur", "Avadi",
+  "KK Nagar", "Saidapet", "Triplicane", "Egmore", "Royapettah"
+];
+
+const vendorList = document.getElementById("vendor-list");
+
+for (let i = 1; i <= 50; i++) {
+  const name = vendorsNames[(i - 1) % vendorsNames.length];
+  const location = areas[i % areas.length];
+  const phone = `98765${10000 + i}`;
+  const price = Math.floor(20000 + Math.random() * 30000); // ₹20,000 - ₹50,000
+  const rating = (Math.random() * 2 + 3).toFixed(1);
+  const foodType = i % 2 === 0 ? "Veg" : "Non-Veg"; // Alternate between Veg and Non-Veg
+
+  const imagePath = `/static/images/eng${i}.jpg`;
+
+  // Dropdown options for color themes
+  const colors = ["Red", "Gold", "Pink", "Lavender", "Sky Blue", "Ivory", "Rose Gold", "Peach", "Maroon", "Mint Green"];
+  const colorMap = {
+    "Red": "#ff0000", "Gold": "#ffd700", "Pink": "#ff69b4", "Lavender": "#e6e6fa",
+    "Sky Blue": "#87ceeb", "Ivory": "#fffff0", "Rose Gold": "#b76e79",
+    "Peach": "#ffdab9", "Maroon": "#800000", "Mint Green": "#98ff98"
+  };
+  const dropdownOptions = colors.map(c => `<option style="background-color:${colorMap[c]}">${c}</option>`).join("");
+
+  vendorList.innerHTML += `
+    <div class="col-md-4">
+      <div class="vendor-card p-3">
+               <img src="${imagePath}" alt="Vendor ${i}" class="img-fluid rounded">
+        <h5 class="mt-3 text-primary">${name}</h5>
+        <p><strong>📍 Location:</strong> ${location}</p>
+        <p><strong>📞 Phone:</strong> ${phone}</p>
+        <p><strong>💰 Price:</strong> ₹${price}</p>
+        <p><strong>⭐ Rating:</strong> ${rating} / 5</p>
+         <p><strong>🍱 Type:</strong> ${foodType}</p>
+        <label class="form-label mt-2"><strong>🎨 Theme Colors</strong></label>
+        <select class="form-select" id="colorTheme${i}">
+          ${dropdownOptions}
+        </select>
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="vendor${i}" onclick="updateChecklist(${i})">
+          <label class="form-check-label" for="vendor${i}">Select this Vendor</label>
+        </div>
+      </div>
+    </div>`;
+}
+
+function updateChecklist(i) {
+  const checklist = document.getElementById("selected-vendors");
+  const checkbox = document.getElementById(`vendor${i}`);
+  if (checkbox.checked) {
+    const div = document.createElement("div");
+    div.id = `check${i}`;
+    div.innerHTML = `<strong>Vendor ${i}</strong> - ✅ Selected<hr>`;
+    checklist.appendChild(div);
+  } else {
+    const rem = document.getElementById(`check${i}`);
+    if (rem) rem.remove();
+  }
+}
+
+function toggleChecklist() {
+  document.getElementById("checklist").classList.toggle("show");
+}
+
+function clearChecklist() {
+  for (let i = 1; i <= 50; i++) {
+    const cb = document.getElementById(`vendor${i}`);
+    if (cb) cb.checked = false;
+    const div = document.getElementById(`check${i}`);
+    if (div) div.remove();
+  }
+}
+
+function submitBooking() {
+  const selectedVendors = [];
+  for (let i = 1; i <= 50; i++) {
+    const checkbox = document.getElementById(`vendor${i}`);
+    if (checkbox && checkbox.checked) {
+      const card = checkbox.closest(".vendor-card");
+      const name = card.querySelector("h5").innerText;
+      const location = card.querySelector("p:nth-of-type(1)").innerText.replace("📍 Location: ", "");
+      const phone = card.querySelector("p:nth-of-type(2)").innerText.replace("📞 Phone: ", "");
+      const priceText = card.querySelector("p:nth-of-type(3)").innerText;
+      const price = parseInt(priceText.replace(/[^\d]/g, ""));
+      selectedVendors.push({ name, location, phone, price });
+    }
+  }
+
+  if (selectedVendors.length === 0) {
+    alert("⚠️ Please select at least one vendor!");
+    return;
+  }
+
+  localStorage.setItem("selectedVendors", JSON.stringify(selectedVendors));
+  alert("🎉 Booking confirmed! Redirecting to summary page...");
+  window.location.href = "/backend/bookingtwo/";
+}
+
+
+
+    
+function openAbout() {
+  const popup = document.getElementById("aboutPopup");
+  const aboutText = document.getElementById("aboutText");
+  popup.classList.remove("d-none");
+
+  const message = "Welcome to the Birthday Party Booking Page! 🎉\n\nHere, you can explore creative vendor options, view colorful decoration themes, and plan your special day effortlessly. Let the celebration begin! 🎂✨";
+  aboutText.innerHTML = "";
+  
+  let index = 0;
+
+  function typeNextChar() {
+    if (index < message.length) {
+      aboutText.innerHTML += message[index] === '\n' ? '<br>' : message[index];
+      index++;
+      setTimeout(typeNextChar, 40); // Speed of typing
+    }
+  }
+
+  typeNextChar();
+}
+
+function closeAbout() {
+  document.getElementById("aboutPopup").classList.add("d-none");
+}
+
+
+</script>
+
+
+</body>
+</html>

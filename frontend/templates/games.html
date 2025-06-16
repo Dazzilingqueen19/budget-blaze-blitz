@@ -1,0 +1,161 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends Game Zone</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        /* Body Styling */
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(to right, #1a1a2e, #16213e);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+        /* Animated Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 50%);
+            animation: moveBg 10s infinite alternate;
+            z-index: -1;
+        }
+        
+        @keyframes moveBg {
+            from { transform: translateY(-20px); }
+            to { transform: translateY(20px); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            font-size: 28px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        /* Home Button */
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #ff6f61;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 0 15px white;
+            transition: 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .home-btn:hover {
+            background: #2ecc71;
+            box-shadow: 0 0 20px lime;
+            transform: scale(1.1);
+        }
+
+        /* Games Container */
+        .games-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            gap: 20px;
+        }
+
+        /* Game Boxes */
+        .game-box {
+            width: 240px;
+            height: 180px;
+            background: #0f3460;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+            transform: perspective(800px) rotateY(0deg);
+        }
+        .game-box:hover {
+            transform: scale(1.1) rotateY(10deg);
+            box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.8);
+            background: #ff6f61;
+            color: white;
+        }
+        
+        /* Animated Game Icons */
+        .game-box h3 {
+            font-size: 22px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎮 Friends Reunion - Game Zone 🎲</h1>
+    </header>
+    <a href="/backend/friends/" class="home-btn">⬅ Back</a>
+    
+    <section class="games-container">
+        <div class="game-box" onclick="location.href='/backend/tic_tac_toe/'">
+            <h3>❌ Tic Tac Toe ⭕</h3>
+            <p>Challenge your friend!</p>
+        </div>
+        <div class="game-box" onclick="location.href='/backend/quiz_game/'">
+            <h3>🧠 Quiz Challenge</h3>
+            <p>Test your knowledge!</p>
+        </div>
+        <div class="game-box" onclick="location.href='/backend/memory_game/'">
+            <h3>🔲 Memory Game</h3>
+            <p>Remember the patterns!</p>
+        </div>
+        <div class="game-box" onclick="location.href='/backend/truth_dare/'">
+            <h3>🎭 Truth or Dare</h3>
+            <p>Fun & crazy challenges!</p>
+        </div>
+        <div class="game-box" onclick="location.href='/backend/word_scramble/'">
+            <h3>🔠 Word Scramble</h3>
+            <p>Unscramble the words!</p>
+        </div>
+        <div class="game-box" onclick="location.href='/backend/puzzle_game/'">
+            <h3>🧩 Puzzle Fun</h3>
+            <p>Fit the pieces together!</p>
+        </div>
+        <div class="game-box" onclick="location.href='/backend/spin_wheel/'">
+            <h3>🎡 Spin the Wheel</h3>
+            <p>Try your luck!</p>
+        </div>
+    </section>
+    <footer>
+        <p>© 2025 Friends Game Zone | Powered by Fun 🎉</p>
+    </footer>
+
+    <audio id="hover-sound" src="hover.mp3"></audio>
+    <audio id="click-sound" src="click.mp3"></audio>
+</body>
+</html>

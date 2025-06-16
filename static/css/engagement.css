@@ -1,0 +1,204 @@
+/* General Styles */
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a2e;
+    color: white;
+}
+
+/* Glass Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Background */
+.bg-image {
+    background-image: url("{% static 'assets/engagement2.jpg' %}");
+    height: 300px;
+}
+
+/* Event Options */
+.event-options {
+    text-align: center;
+    padding: 50px;
+}
+
+h2 {
+    font-size: 2em;
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+    animation: glowText 1.5s infinite alternate;
+}
+
+/* Glowing Text Animation */
+@keyframes glowText {
+    from {
+        text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+    }
+    to {
+        text-shadow: 2px 2px 20px rgba(255, 255, 255, 1);
+    }
+}
+
+/* Glowing Containers */
+.category {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 20px;
+    width: 250px;
+    transition: 0.3s ease;
+}
+
+.category:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+}
+
+button {
+    background: #ff758c;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4b78;
+}
+
+/* Side Checklist */
+#checklistPanel {
+    position: fixed;
+    right: -300px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: -2px 0 10px rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    transition: right 0.5s ease-in-out;
+    overflow-y: auto;
+}
+
+#checklistPanel.active {
+    right: 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .category {
+        width: 90%;
+    }
+}
+/* Video Background */
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Balloon Animation */
+/* Balloon Animation */
+.balloons-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 50px;
+    height: 70px;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: floatUp 6s ease-in infinite;
+}
+
+/* Different Balloon Colors */
+.balloon.red { background: radial-gradient(circle, #ff4b78 30%, #ff758c 70%); }
+.balloon.blue { background: radial-gradient(circle, #4b8bff 30%, #759cff 70%); }
+.balloon.green { background: radial-gradient(circle, #4bff78 30%, #75ff8c 70%); }
+.balloon.yellow { background: radial-gradient(circle, #ffe14b 30%, #ffed75 70%); }
+
+/* Floating Animation */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    80% {
+        transform: translateY(-90vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+
+
+/* Ensuring images fit properly inside containers */
+.category img {
+    width: 100%;  /* Ensures full width */
+    height: 180px;  /* Uniform height */
+    object-fit: cover;  /* Prevents stretching, crops excess */
+    border-radius: 10px;  /* Rounded edges */
+}
+
+/* Proper container sizing */
+.category {
+    width: 270px;  /* Consistent width */
+    height: auto;  /* Adapts to content */
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}

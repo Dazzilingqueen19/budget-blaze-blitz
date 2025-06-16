@@ -1,0 +1,167 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔠 Word Scramble Game</title>
+    <a href="/backend/games/" class="home-btn">🏠 Home</a>
+    <style>
+        body {
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #9ac9ff, #fad0c4);
+            color: white;
+            overflow: hidden;
+        }
+        html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+    
+        .home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ff6f61; /* Contrasting color */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 15px white;
+    transition: 0.3s ease-in-out;
+    z-index: 1000; /* Ensures it stays on top */
+}
+.home-btn:hover {
+    background: #2ecc71;
+    box-shadow: 0 0 20px lime;
+    transform: scale(1.1);
+}
+        h1 {
+            text-shadow: 2px 2px 10px cyan;
+        }
+        #scrambled {
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 10px yellow;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 0 15px white;
+            transition: 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #2ecc71;
+            box-shadow: 0 0 20px lime;
+            transform: scale(1.1);
+        }
+        #hint {
+            margin-top: 10px;
+            font-size: 18px;
+            font-style: italic;
+            color: yellow;
+        }
+        #score, #timer {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔠 Word Scramble</h1>
+    <p id="scrambled">Loading...</p>
+    <input type="text" id="guess" placeholder="Your answer">
+    <br>
+    <button onclick="checkWord()">Check</button>
+    <button onclick="getHint()">Hint</button>
+    <p id="hint"></p>
+    <p id="score">Score: 0</p>
+    <p id="timer">Time Left: 30s</p>
+
+    <script>
+        const words = [
+            { word: "javascript", hint: "A popular programming language" },
+            { word: "python", hint: "A snake and a programming language" },
+            { word: "developer", hint: "A person who builds software" },
+            { word: "internet", hint: "A vast network of networks" },
+            { word: "computer", hint: "An electronic machine" }
+        ];
+
+        let currentWord = "";
+        let scrambledWord = "";
+        let score = 0;
+        let timeLeft = 30;
+        let timer;
+
+        function shuffleWord(word) {
+            return word.split("").sort(() => Math.random() - 0.5).join("");
+        }
+
+        function startGame() {
+            let randomIndex = Math.floor(Math.random() * words.length);
+            currentWord = words[randomIndex].word;
+            scrambledWord = shuffleWord(currentWord);
+            document.getElementById("scrambled").innerText = scrambledWord;
+            document.getElementById("hint").innerText = "";
+            document.getElementById("guess").value = "";
+            resetTimer();
+        }
+
+        function checkWord() {
+            let guess = document.getElementById("guess").value.toLowerCase();
+            if (guess === currentWord) {
+                score += 10;
+                document.getElementById("score").innerText = "Score: " + score;
+                alert("🎉 Correct! Next word coming up!");
+                startGame();
+            } else {
+                alert("❌ Wrong! Try again.");
+            }
+        }
+
+        function getHint() {
+            let hint = words.find(w => w.word === currentWord).hint;
+            document.getElementById("hint").innerText = "Hint: " + hint;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timeLeft = 30;
+            document.getElementById("timer").innerText = "Time Left: " + timeLeft + "s";
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById("timer").innerText = "Time Left: " + timeLeft + "s";
+                if (timeLeft === 0) {
+                    clearInterval(timer);
+                    alert("⏳ Time's up! Game over!");
+                    score = 0;
+                    document.getElementById("score").innerText = "Score: " + score;
+                    startGame();
+                }
+            }, 1000);
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

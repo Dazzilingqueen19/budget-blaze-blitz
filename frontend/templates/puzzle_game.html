@@ -1,0 +1,151 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Spin Game</title>
+    <a href="/backend/games/" class="home-btn">🏠 Home</a>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            margin: 0;
+            overflow: hidden;
+        }
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #ff6f61;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 15px white;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+        .home-btn:hover {
+            background: #2ecc71;
+            box-shadow: 0 0 20px lime;
+            transform: scale(1.1);
+        }
+        html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+        h1 {
+            margin-top: 20px;
+            text-shadow: 0 0 10px #ffea00;
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .puzzle-piece {
+            width: 100px;
+            height: 100px;
+            background-size: 300px 300px;
+            background-position: center;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .puzzle-piece:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px yellow;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #ff6f61;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #2ecc71;
+            box-shadow: 0 0 10px lime;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧩 Puzzle Spin Game 🔄</h1>
+    <div class="game-container" id="puzzle-board"></div>
+    <div class="controls">
+        <button onclick="shufflePieces()">🔀 Shuffle</button>
+        <button onclick="checkWin()">✅ Check Win</button>
+        <p id="message"></p>
+    </div>
+    <script>
+        const puzzleBoard = document.getElementById("puzzle-board");
+        const totalPieces = 9;
+        let rotations = Array(totalPieces).fill(0);
+        
+        function createPuzzle() {
+            for (let i = 0; i < totalPieces; i++) {
+                let piece = document.createElement("div");
+                piece.classList.add("puzzle-piece");
+                piece.style.backgroundImage = "url('puzzle-image.jpg')";
+                piece.style.backgroundPosition = `${-(i % 3) * 100}px ${-Math.floor(i / 3) * 100}px`;
+                piece.dataset.index = i;
+                piece.addEventListener("click", rotatePiece);
+                puzzleBoard.appendChild(piece);
+            }
+        }
+        function rotatePiece() {
+            let index = this.dataset.index;
+            rotations[index] = (rotations[index] + 90) % 360;
+            this.style.transform = `rotate(${rotations[index]}deg)`;
+        }
+        function shufflePieces() {
+            rotations = rotations.map(() => Math.floor(Math.random() * 4) * 90);
+            document.querySelectorAll(".puzzle-piece").forEach((piece, i) => {
+                piece.style.transform = `rotate(${rotations[i]}deg)`;
+            });
+            document.getElementById("message").innerText = "Shuffled! Try to solve it!";
+        }
+        function checkWin() {
+            if (rotations.every(r => r === 0)) {
+                document.getElementById("message").innerText = "🎉 You solved it! 🎯";
+                confettiEffect();
+            } else {
+                document.getElementById("message").innerText = "❌ Not yet! Keep trying!";
+            }
+        }
+        function confettiEffect() {
+            let count = 100;
+            let defaults = { origin: { y: 0.6 } };
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.2, { spread: 120, startVelocity: 45 });
+        }
+        createPuzzle();
+        shufflePieces();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2"></script>
+</body>
+</html>

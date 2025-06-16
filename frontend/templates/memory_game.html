@@ -1,0 +1,136 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Memory Game</title>
+    <a href="/backend/games/" class="home-btn">🏠 Home</a>
+    <style>
+        body {
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            background: #1e1e1e;
+            color: #fff;
+        }
+        html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+        .home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ff6f61; /* Contrasting color */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 15px white;
+    transition: 0.3s ease-in-out;
+    z-index: 1000; /* Ensures it stays on top */
+}
+.home-btn:hover {
+    background: #2ecc71;
+    box-shadow: 0 0 20px lime;
+    transform: scale(1.1);
+}
+        h1 {
+            text-shadow: 2px 2px 10px cyan;
+        }
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background: #34495e;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 10px cyan;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: transparent;
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #ffcc00;
+        }
+        .card.flipped {
+            background: #ffcc00;
+            color: #000;
+        }
+        #message {
+            font-size: 20px;
+            margin-top: 15px;
+            color: lime;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔲 Memory Game</h1>
+    <div id="game-board"></div>
+    <p id="message"></p>
+
+    <script>
+        const symbols = ["🍎", "🍌", "🍇", "🍓", "🍍", "🍉", "🍎", "🍌", "🍇", "🍓", "🍍", "🍉"];
+        let shuffledSymbols = symbols.sort(() => 0.5 - Math.random());
+        let selectedCards = [];
+        let matchedPairs = 0;
+
+        function createBoard() {
+            let gameBoard = document.getElementById("game-board");
+            gameBoard.innerHTML = "";
+            shuffledSymbols.forEach((symbol, index) => {
+                let card = document.createElement("div");
+                card.className = "card";
+                card.dataset.symbol = symbol;
+                card.dataset.index = index;
+                card.addEventListener("click", flipCard);
+                gameBoard.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            if (selectedCards.length < 2 && !this.classList.contains("flipped")) {
+                this.classList.add("flipped");
+                this.innerText = this.dataset.symbol;
+                selectedCards.push(this);
+
+                if (selectedCards.length === 2) {
+                    setTimeout(checkMatch, 500);
+                }
+            }
+        }
+
+        function checkMatch() {
+            if (selectedCards[0].dataset.symbol === selectedCards[1].dataset.symbol) {
+                matchedPairs++;
+                selectedCards = [];
+                if (matchedPairs === symbols.length / 2) {
+                    document.getElementById("message").innerText = "🎉 You Won! 🎉";
+                }
+            } else {
+                selectedCards.forEach(card => {
+                    card.classList.remove("flipped");
+                    card.innerText = "";
+                });
+                selectedCards = [];
+            }
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>

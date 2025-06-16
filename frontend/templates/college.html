@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Blaze Blitz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+   <!-- Background Image -->
+    <div class="bg-image" style="background-image: url('main.jpg');"></div>
+
+
+    <!-- Glass Header -->
+    <header class="glass-header">
+        <div class="logo">Budget Blaze Blitz</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="#">Checklist</a></li>
+                <li><a href="auth.html">Login</a></li>
+                
+            </ul>
+            <script>
+                // Check if user is logged in
+                if (!localStorage.getItem("isLoggedIn")) {
+                    window.location.href = "auth.html"; // Redirect to login page
+                }
+            </script>
+            
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="glowing-text">Get the Best <span class="highlight">Deals</span> Always Within <span class="highlight">Budget</span></h1>
+            <p class="fade-in">Search events. Book with confidence. Relax and enjoy.</p>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <select id="city">
+                    <option value="">Select City</option>
+                    <option value="New York">New York</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                </select>
+
+                <select id="vendor">
+                    <option value="">Select Vendor</option>
+                    <option value="Catering">Catering</option>
+                    <option value="Decoration">Decoration</option>
+                </select>
+
+                <select id="occasion">
+                    <option value="">Select Occasion</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Wedding">Wedding</option>
+                </select>
+
+                <button class="search-btn" onclick="searchEvents()">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Small Scale Events Section -->
+    <section class="small-events">
+        <h2 class="section-title">Small-Scale Events</h2>
+        <div class="event-container">
+            <div class="event-box" id="birthday" onclick="window.location.href='Birthday_Party.html'">
+                <img src="birthday.jpg" alt="Birthday Party">
+                <p>Birthday Party</p>
+            </div>
+            <div class="event-box" id="engagement">
+                <img src="engagement.jpg" alt="Engagement">
+                <p>Engagement</p>
+            </div>
+            <div class="event-box" id="farewell">
+                <img src="farewell.jpg" alt="Farewell">
+                <p>Farewell</p>
+            </div>
+            <div class="event-box" id="friends-reunion">
+                <img src="friends-reunion.jpg" alt="Friends Reunion">
+                <p>Friends Reunion</p>
+            </div>
+        </div>
+        <div class="event-content" id="event-description"></div>
+    </section>
+    <!-- Genuine Memories Section -->
+<section class="genuine-memories">
+    <h2 class="section-title">This is the way we accomplish it.</h2>
+    <p class="subtitle">Genuine individuals. Genuine occurrences. Genuine recollections.</p>
+
+    <!-- Scrolling Image Row -->
+    <div class="scrolling-container">
+        <div class="scrolling-wrapper">
+            <img src="image1.jpg" alt="Event 1">
+            <img src="image2.jpg" alt="Event 2">
+            <img src="image3.jpg" alt="Event 3">
+            <img src="image4.jpg" alt="Event 4">
+            <img src="image5.jpg" alt="Event 5">
+            <img src="image6.jpg" alt="Event 6">
+            <img src="image7.jpg" alt="Event 7">
+            <img src="image8.jpg" alt="Event 8">
+            <img src="image9.jpg" alt="Event 9">
+            <img src="image10.jpg" alt="Event 10">
+            <img src="image11.jpg" alt="Event 11">
+            <img src="image12.jpg" alt="Event 12">
+        </div>
+        <div class="scroll-dots"></div>
+    </div>
+</section>
+<!-- 🔹 Image Pop-up Modal -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>Discover seamless event planning with India's Largest Event Booking Portal...</p>
+        <div class="footer-links">
+            <div>
+                <h3>Useful Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Venues</h3>
+                <ul>
+                    <li><a href="#">Exhibition</a></li>
+                    <li><a href="#">Corporate Offerings</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contact Us</h3>
+                <p>Phone: +91 8451901950</p>
+                <p>Email: Budget Blaze Blitz.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

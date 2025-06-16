@@ -1,0 +1,139 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin Wheel Game</title>
+    <a href="/backend/games/" class="home-btn">🏠 Home</a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+        }
+        html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+        .home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ff6f61; /* Contrasting color */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 15px white;
+    transition: 0.3s ease-in-out;
+    z-index: 1000; /* Ensures it stays on top */
+}
+.home-btn:hover {
+    background: #2ecc71;
+    box-shadow: 0 0 20px lime;
+    transform: scale(1.1);
+}
+   
+        .wheel-container {
+            position: relative;
+            margin: 50px auto;
+            width: 300px;
+            height: 300px;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 10px solid white;
+            box-shadow: 0px 0px 20px white;
+            transition: transform 4s ease-out;
+        }
+        .pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid red;
+        }
+        .spin-btn {
+            background: #ff4757;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 0px 15px white;
+            transition: 0.3s;
+        }
+        .spin-btn:hover {
+            background: #2ed573;
+            box-shadow: 0px 0px 20px lime;
+        }
+        #winner {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0px 0px 10px yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎡 Spin the Wheel & Win Prizes! 🎁</h1>
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <canvas id="wheelCanvas" class="wheel"></canvas>
+    </div>
+    <button class="spin-btn" onclick="spinWheel()">SPIN NOW</button>
+    <div id="winner"></div>
+    
+    <script>
+        const wheelCanvas = document.getElementById("wheelCanvas");
+        const ctx = wheelCanvas.getContext("2d");
+        const prizes = ["$100", "$50", "Try Again", "Jackpot", "$10", "Free Spin", "$500", "$5"];
+        let rotation = 0;
+        
+        function drawWheel() {
+            const sections = prizes.length;
+            const arc = Math.PI * 2 / sections;
+            wheelCanvas.width = 300;
+            wheelCanvas.height = 300;
+            
+            for (let i = 0; i < sections; i++) {
+                ctx.beginPath();
+                ctx.fillStyle = i % 2 === 0 ? "#ffcc00" : "#ff6f61";
+                ctx.moveTo(150, 150);
+                ctx.arc(150, 150, 150, arc * i, arc * (i + 1));
+                ctx.fill();
+                ctx.fillStyle = "black";
+                ctx.font = "14px Poppins";
+                ctx.fillText(prizes[i], 200, 200 - (i * 20));
+            }
+        }
+        drawWheel();
+
+        function spinWheel() {
+            let spinAngle = Math.floor(3600 + Math.random() * 360);
+            rotation += spinAngle;
+            wheelCanvas.style.transform = `rotate(${rotation}deg)`;
+            
+            setTimeout(() => {
+                let selected = Math.floor(((rotation % 360) / (360 / prizes.length)));
+                document.getElementById("winner").innerHTML = `🎉 You Won: <b>${prizes[selected]}</b>`;
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
