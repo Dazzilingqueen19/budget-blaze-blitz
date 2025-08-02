@@ -132,3 +132,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 APPEND_SLASH = False
 
+ALLOWED_HOSTS = ['*']  # Accepts all hosts — okay for dev, not safe for production
