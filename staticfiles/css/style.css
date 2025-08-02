@@ -1,0 +1,605 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+}
+
+/* 🌟 Background Image */
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("{% static 'assets/main2.jpg' %}");
+    
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -1;
+}
+
+/* Glass Header */
+.glass-header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    color: white;
+}
+
+.glass-header .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Navbar Styles */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    position: relative;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 0;
+    transition: color 0.3s;
+}
+
+/* Underline Effect */
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background: red;
+    transition: width 0.3s ease-in-out;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul li a:hover {
+    color: #ff5733;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+}
+
+/* Glowing Text Effect */
+.glowing-text {
+    font-size: 48px;
+    font-weight: bold;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 10px #ff5733; }
+    100% { text-shadow: 0 0 20px #ff5733; }
+}
+
+/* Fade-in effect */
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Search Section in One Row */
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+select, .search-btn {
+    padding: 10px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+}
+
+.search-btn {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #218838;
+}
+
+/* Small-Scale Events - White Background */
+.small-events {
+    background: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 28px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px; /* More spacing */
+    
+    color: black;
+}
+
+.event-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.event-box {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-box img {
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.event-box p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: black;
+}
+
+.event-box:hover {
+    background: rgba(255, 100, 100, 0.5);
+    transform: scale(1.1);
+}
+
+/* Event Description */
+.event-content {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin-top: 20px;
+}
+
+/* Removed Our Works Section */
+.our-works {
+    display: none;
+}
+
+/* Removed Scrolling Gallery */
+.real-stories {
+    display: none;
+}
+
+/* Footer */
+footer {
+    background: black;
+    color: white;
+    padding: 12px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+.footer-links div {
+    text-align: center;
+}
+
+.footer-links h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+    color: #ff5733;
+}
+/* Genuine Memories Section */
+.genuine-memories {
+    background:  #ffeec4;
+    padding:  80px 5%;
+    text-align: center;
+}
+
+.genuine-memories .section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px; /* More spacing */
+  
+    color: black;
+}
+
+.subtitle {
+    font-size: 30px;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+/* Scrolling Image Row */
+.scrolling-container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+.scrolling-wrapper {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.scrolling-wrapper img {
+    width: 150px;
+    height: 100px;
+    border-radius: 16px;
+    object-fit: cover;
+    transition: transform 0.5s, border 0.3s;
+}
+
+/* Scroll Dots */
+.scroll-dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.scroll-dots span {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: gray;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+/* Hover Effect - Scroll */
+.scrolling-container:hover .scrolling-wrapper {
+    transform: translateX(-50%);
+}
+
+/* Image Hover Effects */
+.scrolling-wrapper img:hover {
+    transform: scale(1.1);
+    border: 3px solid red;
+}
+
+/* Active Scroll Dot */
+.scroll-dots span.active {
+    background-color: red;
+}
+
+/* Footer Modifications */
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+.footer-links div {
+    text-align: left;
+}
+
+.footer-links h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+/* Glow Effect on Click */
+.footer-links ul li a:active {
+    color: #ff5733;
+    text-shadow: 0 0 10px #ff5733;
+}
+/* 🔹 Image Pop-up Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    max-width: 60%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s;
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* 🔹 Hover Effect */
+.scrolling-wrapper img:hover {
+    transform: scale(1.1);
+    border: 3px solid red;
+    cursor: pointer;
+}
+/* From Uiverse.io by ahmed150up2 */ 
+.card {
+    display: flex;
+    height: 70px;
+    width: 270px;
+  }
+  
+  .card svg {
+    position: absolute;
+    display: flex;
+    width: 60%;
+    height: 100%;
+    font-size: 24px;
+    font-weight: 700;
+    opacity: 1;
+    transition: opacity 0.25s;
+    z-index: 2;
+    cursor: pointer;
+  }
+  
+  .card .social-link1,.card .social-link2,.card .social-link3,.card .social-link4 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    color: whitesmoke;
+    font-size: 24px;
+    text-decoration: none;
+    transition: 0.25s;
+    border-radius: 50px;
+  }
+  
+  .card svg {
+    transform: scale(1);
+  }
+  
+  .card .social-link1:hover {
+    background-color: #1a1e22;
+    animation: bounce_613 0.4s linear;
+  }
+  
+  .card .social-link2:hover {
+    background-color: #0a66c2;
+    animation: bounce_613 0.4s linear;
+  }
+  
+  .card .social-link3:hover {
+    background-color: #0059f7;
+    animation: bounce_613 0.4s linear;
+  }
+  
+  .card .social-link4:hover {
+    background-color: #1d4292;
+    animation: bounce_613 0.4s linear;
+  }
+  
+  @keyframes bounce_613 {
+    40% {
+      transform: scale(1.4);
+    }
+  
+    60% {
+      transform: scale(0.8);
+    }
+  
+    80% {
+      transform: scale(1.2);
+    }
+  
+    100% {
+      transform: scale(1);
+    }
+  }
+  .large-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+  .glass-sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 260px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    padding: 30px 20px;
+    transition: right 0.4s ease-in-out;
+    z-index: 1050;
+  }
+  
+  .glass-sidebar.show {
+    right: 0;
+  }
+  
+  .glass-sidebar .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+  }
+  .social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: #ccc;
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #0d6efd; /* Bootstrap primary blue or change to your brand color */
+}
+body.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  /* Optional: Update header and footer for dark mode */
+  body.dark-mode .glass-header {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  body.dark-mode footer {
+    background-color: #1f1f1f;
+  }
+  /* Smooth transition effect */
+body, .glass-header, footer, nav, .card {
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  /* Existing dark mode styles (keep or adjust) */
+  body.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  /* Header & footer tweaks */
+  body.dark-mode .glass-header {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  body.dark-mode footer {
+    background-color: #1f1f1f;
+  }
+  .card, .btn {
+    transition: background-color 0.5s ease, color 0.5s ease, border 0.3s ease;
+  }
+  
+  body.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+  }
+  
+  body.dark-mode .btn {
+    background-color: #343a40;
+    color: #fff;
+  }
+  body {
+    opacity: 1;
+    transition: none;
+  }
+  body.loaded {
+    opacity: 1;
+  }
+      
